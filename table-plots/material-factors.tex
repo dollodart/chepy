@@ -1,0 +1,25 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+
+\begin{document}
+\tiny
+\begin{tikzpicture}
+\begin{axis}[width=15cm,
+            xbar,
+            xmajorgrids,
+            bar width=5pt,
+            xlabel = {\Large Material Factor},
+            ytick=data,
+            ymin=0.5,
+            ymax=40.5,
+            ylabel = {\Large Identification Number},
+            nodes near coords,
+            nodes near coords align={east},
+            nodes = {}]
+\addplot[xbar,
+         fill=black!30!white] table[x index=1,
+                                    y index=0,
+                                    col sep=comma] {material-factors.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}
