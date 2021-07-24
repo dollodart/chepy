@@ -1,0 +1,25 @@
+Material,Resistivity,Conductivity,Temperature coefficient
+Silver,1.59e-8,63000000,0.0038
+Copper,1.68e-8,59600000,0.00404
+Annealed copper,1.72e-8,58000000,0.00393
+Gold,2.44e-8,41000000,0.0034
+Aluminium,2.65e-8,37700000,0.0039
+Calcium,3.36e-8,29800000,0.0041
+Tungsten,5.60e-8,17900000,0.0045
+Zinc,5.90e-8,16900000,0.0037
+Nickel,6.99e-8,14300000,0.006
+Lithium,9.28e-8,10800000,0.006
+Iron,9.7e-8,10000000,0.005
+Platinum,1.06e-7,9430000,0.00392
+Tin,1.09e-7,9170000,0.0045
+Gallium,1.40e-7,7100000,0.004
+Niobium,1.4e-7,7000000,
+Carbon steel (1010),1.43e-7,6990000,
+Lead,2.20e-7,4550000,0.0039
+Titanium,4.20e-7,2380000,0.0038
+Grain oriented electrical steel,4.60e-7,2170000,
+Manganin,4.82e-7,2070000,2E-06
+Constantan,4.90e-7,2040000,8E-06
+Stainless steel,6.90e-7,1450000,0.00094
+Mercury,9.80e-7,1020000,0.0009
+Manganese,1.44e-6,694000,
