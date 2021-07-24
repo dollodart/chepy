@@ -1,0 +1,27 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[height=25cm,
+             width=15cm,
+             xbar,
+             bar width=10pt,
+             xmode=log,
+             log origin=infty,
+             xmajorgrids,
+             xminorgrids,
+             xlabel={\Large Vapor Pressure at 293 K in kPa},
+             x tick label style={/pgf/number format/.cd},
+             ytick = data,
+             symbolic y coords={Water,Trichloroethylene,Toluene,Tetrachloroethylene,Tetrachloroethane,Styrene,Sodium hydroxide [30\% sol],Sodium hydroxide [20\% sol],Sodium chloride [25\% sol],Sea water,Propionic acid,Propanol,Phenol,Pentane,Octane,Nonane,Nitro benzine,Milk,Methylene chloride,Methyl alcohol,Methyl acetate,Kerosene,Isopropyl alcohol (rubbing alcohol),Hexane,Heptane,Furfurol,Formic acid,Ethylene glycol,Ethyl glycol,Ethyl alcohol,Ethyl acetate,Cyclohexanone,Cyclohexanol,Chloroform,Carbon tetrachloride,Carbon disulphide,Calcium chloride [5\% sol],Calcium chloride [25\% sol],Butyric acid n,Butyl alcohol,Butyl acetate,Bromine,Benzyl alcohol,Benzene,Beer,Aniline,Amyl acetate,Aluminum sulphate [10\% sol],Aluminum nitrate [10\% sol],Allyl chloride,Allyl alcohol,Acetone,Acetic acid anhydride,Acetic acid},
+             nodes near coords]
+\addplot[xbar,
+         fill=gray,
+         point meta=explicit symbolic,
+         nodes near coords align={east}] table[y=compound,
+                                               x=vaporpressure,
+                                               meta=nonlog,
+                                               col sep=comma] {vapor-pressures.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}

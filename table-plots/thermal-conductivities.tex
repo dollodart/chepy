@@ -1,0 +1,30 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\usepackage{gensymb}
+\begin{document}
+\tiny
+\begin{tikzpicture}[]
+\begin{axis}[height=80cm,
+             width=15cm,
+             xbar,
+             bar width=4pt,
+             xmode=log,
+             log origin=infty,
+             xlabel={\Large Thermal Conductivity at 300 K in W/m$^2\cdot$K},
+             xmajorgrids, xminorgrids,
+             x tick label style={/pgf/number format/.cd},
+             ytick=data,
+%
+             symbolic y coords={Zinc,Xenon  (gas),Wool  (felt),Wood  (oak),Wood wool  (slab),Wood across the grain  (yellow pine),Wood across the grain  (white pine),Wood across the grain  (balsa),White metal,Wheat flour,Wax,Water,Vinyl ester,Vermiculite granules,Vacuum,Urethane foam,Uranium,Tungsten,Titanium,Tin Sn,Timber  (white pine),Timber  (walnut),Timber  (red pine),Timber   (red beech),Timber  (pockwood),Timber  (pitchpine),Timber  (oak),Timber  (maple),Timber  (larch),Timber  (birch),Timber  (ash),Timber  (alder),Thorium,Tellurium,Tar,Tantalum,Sulfur  (crystal),Sulfur dioxide  (gas),Sugars,Styrofoam,Straw slab insulation  (compressed),Steel  (Carbon 1\%),Steam  (saturated),Steam  (low pressure),Stainless Steel,Soot,Soil  (with organic matter),Soil  (saturated),Soil  (clay),Softwoods  (fir or pine),Sodium  (solid),Sodium  (liquid),Snow,Slate,Slag wool,Silver,Silicon oil,Silicon cast resin,Silicon carbide,Silica aerogel,Sheep wool,Selenium,Sawdust,Sandstone,Sand  (saturated),Sand  (moist),Sand  (dry),Salmon  (73\% moisture content),Rubidium,Rubber  (natural),Rubber  (cellular),Rosin,Rock  (solid),Rock  (porous volcanic),Rock Wool insulation,Rhodium,Rhenium,Red metal,Radon  (gas),Quartz mineral,Pyrex glass,Propane  (gas),Potato  (raw flesh),Potassium,Porcelain,Polyvinylchloride  (PVC),Polyurethane foam,Polytetrafluoroethylene  (PTFE),Polystyrol,Polystyrene  (expanded styrofoam),Polypropylene  (PP),Polymethylmethacrylate,Polyisoprene natural rubber,Polyisoprene hard rubber,Polyethylene low density  (PEL),Polyethylene high density  (PEH),Polyester,Polycarbonate,Plywood,Plutonium,Platinum,Plastics  (foamed),Plasticine,Plaster  (wood lath),Plaster  (sand),Plaster  (metal lath),Plaster light,Pitch,Pit coal,Pinchbeck,Phosphorbronze,Phenolic cast resins,Phenol-formaldehyde moulding compounds,Perlite  (vacuum),Perlite  (atmospheric pressure),Peat,Paraffin Wax,Paper,Palladium,Oxygen  (gas),Olive oil,Oil  (machine lubricating SAE 50),Nylon 6  (Nylon 6/6),Nitrous oxide  (gas),Nitrogen  (gas),Nitric oxide  (gas),Nickel,Neoprene,Neon  (gas),Monel,Molybdenum,Mineral wool insulation materials  (wool blankets ..),Milk,Mica,Methanol,Methane  (gas),Mercury  (liquid),Marble,Magnesium alloy,Magnesium,Magnesite,Magnesia insulation  (0.85),Lithium,Limestone,Leather  (dry),Lead Pb,Krypton  (gas),Kerosene,Kapok insulation,Iron-oxide,Iron  (wrought),Iron  (cast),Iron,Iridium,Iodine,Insulation materials,Ingot iron,Ice (0 \degree C),Hydrogen sulfide  (gas),Hydrogen  (gas),Hydrochloric acid  (gas),Honey  (12.6\% moisture content),Helium  (gas),Hardwoods  (oak),Hardboard high density,Hairfelt,Gypsum board,Ground or soil  (very moist area),Ground or soil  (very dry area),Ground or soil  (moist area),Ground or soil  (dry area),Gravel,Graphite,Granite,Gold,Glycerol,Glass  (wool Insulation),Glass  (window),Glass  (Pearls),Glass  (Pearls),Glass,Gasoline,Foam glass,Fluorine  (gas),Fire-clay brick 500\degree C,Fiberglass,Fiber insulating board,Fiber hardboard,Felt insulation,Feathers,Ethylene glycol,Ethylene  (gas),Ether,Ethane  (gas),Epoxy,Engine Oil,Emery,Ebonite,Earth  (dry),Duralium,Dichlorodifluoromethane R-12 (gas),Dichlorodifluoromethane R-12 (liquid),Diatomite,Diatomaceous earth  (Sil-o-cel),Diamond,Cotton Wool insulation,Cotton wool,Cotton,Cork  (re-granulated),Cork board,Cork,Corian  (ceramic filled),Copper,Constantan,Concrete  (stone),Concrete  (medium),Concrete  (lightweight),Concrete  (dense),Coke,Cod  (83\% moisture content),Cobalt,Coal,Clay  (saturated),Clay  (dry to moist),Chrom-oxide,Chromium,Chrome Nickel Steel  (18\% Cr),Chlorine  (gas),Chlorinated poly-ether,Charcoal,Chalk,Cement  (portland),Cement  (mortar),Cellulose  (cotton),Cellulose nitrate  (celluloid),Cellulose acetate  (molded),Cast iron,Carbon Steel,Carbon monoxide,Carbon dioxide  (gas),Carbon,Calcium silicate,Cadmium,Butter  (15\% moisture content),Brown iron ore,Bronze,Bromine  (gas),Brickwork  (dense),Brickwork  (common),Brick  (insulating),Brick  (fire),Brick dense,Breeze block,Brass,Boiler scale,Blast furnace gas,Bitumen/felt layers,Bitumen,Bitumen,Bismuth,Beryllium,Benzene,Beef  (lean 78.9 \% moisture),Balsa wood,Asphalt,Asbestos-cement sheets,Asbestos-cement board,Asbestos-cement,Asbestos  (loosely packed),Asbestos mill board,Argon  (gas),Apple  (85.6\% moisture),Antimony,Ammonia  (gas),Aluminum Oxide,Aluminum Brass,Aluminum,Alcohol,Air  (elevation 10000 m),Air  (atmosphere),Agate,Acrylic,Acetylene  (gas),Acetone,Acetals},
+]
+\addplot[xbar,
+         fill=black!30!white,
+         point meta=explicit symbolic,
+         nodes near coords,
+         nodes near coords align={east}] table[y=compound,
+                                               x=conductivities,
+                                               col sep=comma,
+                                               meta=nonlog] {thermal-conductivities.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}

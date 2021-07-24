@@ -1,0 +1,28 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[height=25cm,
+             width=15cm,
+             ytick = data,
+             xbar,
+             bar width=10pt,
+             xlabel={\Large Viscosity at 300 K in mPa$\cdot$s},
+             xmajorgrids,
+             xminorgrids,
+             x tick label style={/pgf/number format/.cd},
+             log origin=infty,
+             xmode=log,
+             nodes near coords,
+             symbolic y coords={Water (fresh),Turpentine,Trichlorofluoromethane refrigerant R-11,Toluene,Propylene glycol,Propylene,Propane,Phenol,Octane,Milk,Mercury,Linseed Oil,Kerosene,Hexane,Heptane,Glycerine,Ethylene Glycol,Ether,Dodecane,Decane,Chloroform,Castor Oil,Carbon Tetrachloride,Carbon Disulfide,Bromine,Blood,Benzene,Alcohol (propyl),Alcohol (methyl),Alcohol (ethyl),Acetone,Acetic acid}
+]
+\addplot[xbar,
+         fill=gray,
+         point meta=explicit symbolic,
+         nodes near coords align={east}] table[y=compound,
+                                               x=viscosity,
+                                               meta=nonlog,
+                                               col sep=comma] {viscosities.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}
