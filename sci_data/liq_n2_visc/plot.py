@@ -34,7 +34,7 @@ def plot_eta_T():
     for press, gr in df.groupby('Pscale'):
         x = gr['T']
         y = gr['eta']
-        plt.plot(x, y, c=rainbow(press),label=press*Pmax)
+        plt.plot(x, y, 'o', c=rainbow(press),label=press*Pmax)
     plt.xlabel('Temperature/K')
     plt.ylabel('Viscosity/uPa*s')
     plt.title('Legend Pressure in MPa')
@@ -42,4 +42,5 @@ def plot_eta_T():
 
 if __name__ == '__main__':
     plot_eta_P()
+    plot_eta_T()
     plt.show()
