@@ -1,0 +1,129 @@
+species,phase,chemical formula,dGf0 (kJ/mol)
+Aluminum,Aluminum,Aluminum,Aluminum
+Aluminum,solid,Al,0
+Aluminum Chloride,solid,AlCl3,-628.9
+Aluminum Oxide,solid,Al2O3,-1582.3
+Barium,Barium,Barium,Barium
+Barium,solid,Ba,0
+Barium Chloride,solid,BaCl2,-806.7
+Barium Carbonate,solid,BaCO3,-1134.4
+Barium Oxide,solid,BaO,-520.4
+Barium Sulfate,solid,BaSO4,-1362.2
+Beryllium,Beryllium,Beryllium,Beryllium
+Beryllium,solid,Be,0
+Beryllium Hydroxide,solid,Be(OH)2,-815.0
+Boron,Boron,Boron,Boron
+Boron Trichloride,solid,BCl3,-388.7
+Bromine,Bromine,Bromine,Bromine
+Bromine,liquid,Br2,0
+Bromine Trifluoride,gas,BrF3,-229.4
+Hydrobromic Acid,gas,HBr,-53.4
+Calcium,Calcium,Calcium,Calcium
+Calcium,solid,Ca,0
+Calcium carbide,solid,CaC2,-64.9
+Calcium Carbonate (Calcite),solid,CaCO3,-1129.1
+Calcium Chloride,solid,CaCl2,-748.8
+Calcium Chloride,aqueous,CaCl2,-816.05
+Calcium Hydride,solid,CaH2,-142.5
+Calcium hydroxide,solid,Ca(OH)2,-897.5
+Calcium Oxide,solid,CaO,-603.3
+Calcium Sulfate,solid,CaSO4,-1309.1
+Calcium Sulfide,solid,CaS,-477.4
+Carbon,Carbon,Carbon,Carbon
+Carbon (Graphite),solid,C,0
+Carbon (Diamond),solid,C,2.900
+Carbon Dioxide,gas,CO2,-394.39
+Carbonic acid,aqueous,H2CO3,-623.1
+Bicarbonate,aqueous,HCO3−,-586.85
+Carbonate ion,aqueous,CO32−,-527.8
+Carbon disulfide,gas,CS2,67.1
+Carbon Monoxide,gas,CO,-137.16
+Glucose,solid,C6H12O6,-910.56
+Ethanol,liquid,C2H5OH,-174.8
+Carbonyl Chloride (Phosgene),gas,COCl2,-204.9
+Caesium,Caesium,Caesium,Caesium
+Caesium,solid,Cs,0
+Caesium chloride,solid,CsCl,-414.4
+Chlorine,Chlorine,Chlorine,Chlorine
+Chlorine,gas,Cl2,0
+Chromium,Chromium,Chromium,Chromium
+Chromium,solid,Cr,0
+Copper,Copper,Copper,Copper
+Copper,solid,Cu,0
+Copper(I) sulfide,solid,Cu2S,-86.2
+Fluorine,Fluorine,Fluorine,Fluorine
+Fluorine,gas,F2,0
+Hydrogen,Hydrogen,Hydrogen,Hydrogen
+Hydrogen,gas,H2,0
+Water,liquid,H2O,-237.14
+Water,gas,H2O,-228.61
+Hydrogen Peroxide,liquid,H2O2,-120.42
+Hydrogen Cyanide,gas,HCN,+124.7
+Hydrogen Iodide,gas,HI,+1.3
+Hydrogen Fluoride,gas,HF,-275.4
+Hydrogen Chloride,gas,HCl,-95.30
+Iodine,Iodine,Iodine,Iodine
+Iodine,solid,I2,0
+Iodine,gas,I2,19.37
+Iron,Iron,Iron,Iron
+Lead,Lead,Lead,Lead
+Lithium,Lithium,Lithium,Lithium
+Magnesium,Magnesium,Magnesium,Magnesium
+Magnesium Carbonate,solid,MgCO3,-1012.1
+Magnesium Chloride,solid,MgCl2,-591.8
+Magnesium hydroxide,solid,Mg(OH)2,-833.7
+Magnesium hydroxide,aqueous,Mg(OH)2,-769.4
+Magnesium Oxide,solid,MgO,-596.3
+Magnesium sulfate,solid,MgSO4,-1170.6
+Manganese,Manganese,Manganese,Manganese
+Manganese(II) oxide,solid,MnO,-362.9
+Manganese(IV) Oxide,solid,MnO2,-465.2
+Mercury,Mercury,Mercury,Mercury
+Mercury(II) Oxide (red),solid,HgO,-58.49
+"Mercury Sulfide (red, cinnabar)",solid,HgS,-50.6
+Nickel,Nickel,Nickel,Nickel
+Nitrogen,Nitrogen,Nitrogen,Nitrogen
+Ammonia,aqueous,NH3,-26.57
+Ammonia,gas,NH3,-16.4
+Ammonium Chloride,solid,NH4Cl,-203.89
+Nitrogen Dioxide,gas,NO2,51.3
+Nitrogen Monoxide,gas,NO,87.60
+Oxygen,Oxygen,Oxygen,Oxygen
+Monatomic oxygen,gas,O,231.7
+Dioxygen,gas,O2,0
+Ozone,gas,O3,163.2
+Hydroxide,aqueous,OH−,-157.2
+Phosphorus,Phosphorus,Phosphorus,Phosphorus
+Phosphorus trichloride,liquid,PCl3,-272.4
+Potassium,Potassium,Potassium,Potassium
+Potassium Bromide,solid,KBr,-380.7
+Potassium Chlorate,solid,KClO3,-296.31
+Potassium chloride,solid,KCl,-408.5
+Potassium Fluoride,solid,KF,-537.8
+Potassium Perchlorate,solid,KClO4,-303.1
+Silicon,Silicon,Silicon,Silicon
+Silica (Quartz),solid,SiO2,-856.4
+Silver,Silver,Silver,Silver
+Silver Bromide,solid,AgBr,-96.90
+Silver Chloride,solid,AgCl,-109.8
+Silver Iodide,solid,AgI,-66.19
+Silver Oxide,solid,Ag2O,-11.21
+Silver Sulfide,solid,Ag2S,-40.67
+Sodium,Sodium,Sodium,Sodium
+Sodium Carbonate,solid,Na2CO3,-1044.4
+Sodium Carbonate,aqueous,Na2CO3,-1051.6
+Sodium chloride,aqueous,NaCl,-393.17
+Sodium chloride,solid,NaCl,-384.1
+Sodium Fluoride,solid,NaF,-546.3
+Sodium Hydroxide,aqueous,NaOH,-419.2
+Sodium Hydroxide,solid,NaOH,-379.4
+Sodium nitrate,aqueous,NaNO3,-373.21
+Sodium nitrate,solid,NaNO3,-367.06
+Sulfur,Sulfur,Sulfur,Sulfur
+Hydrogen Sulfide,gas,H2S,-33.4
+Sulfur Dioxide,gas,SO2,-300.13
+Sulfur trioxide,gas,SO3,-370.4
+Sulfuric acid,liquid,H2SO4,-689.9
+Tin,Tin,Tin,Tin
+Titanium,Titanium,Titanium,Titanium
+Zinc,Zinc,Zinc,Zinc
