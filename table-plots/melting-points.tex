@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}[]
+	\begin{axis}[height=20cm,
+                 width=15cm,
+                 xlabel={\Large Atomic Number base 8},
+                 xmin=0,
+                 xmax=140,
+                 xtick={0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160},
+                 xmajorgrids,
+                 xminorgrids,
+                 ylabel={\Large Melting Point in Kelvin},
+                 ymin=-50,
+                 ymax=4050,
+                 nodes near coords,
+                 every node near coord/.append style={scale=0.5,black}]
+		\addplot[xcomb,
+                 blue,
+                 point meta=explicit symbolic,
+                 nodes near coords align={west}] table[y=Melting-point-Kelvin,
+                                                       x=Atomic-number-base-8,
+                                                       meta=symbol,
+                                                       col sep=comma] {melting-points.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}

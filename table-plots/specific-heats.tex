@@ -1,0 +1,27 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\begin{document}
+\tiny
+\begin{tikzpicture}[]
+\begin{axis}[height=20cm,
+             width=20cm,
+             xbar,
+             bar width=5pt,
+             xmajorgrids,
+             xminorgrids,
+             xmin=0,
+             xmax=7,
+             xlabel={\Large Heat Capacity at 300 K in kJ/(kg$\cdot$K)},
+             x tick label style={/pgf/number format/.cd},
+             ytick=data,
+             symbolic y coords={Xylene,Water (fresh),Water (36 F),Turpentine,Tuluol,Trichlor ethylene,Toluene,Sulfuric acid concentrated,Sulfuric acid,Soya bean oil,Sodium hydrate,Sodium (200 F),Sodium (1000 F),Sesame oil,Propylene Glycol,Propylene,Propane (32 F),Potassium hydrate,Phenol,Petroleum ether,Petroleum,Perchlor ethylene,Paraffin,Oil (Vegetable),Oil (Turpentine),Oil (Olive),Oil (Olive),Oil (Mineral),Oil (Castor),Octane,Nitro benzole,Nitric acid,n-Butane (32 F),Naphthalene,Milk,Methyl alcohol,Mercury,Linseed Oil,Light Oil (60 F),Light Oil (300 F),Kerosene,Iodine,Hydrochlor acid,Hexane,Heptane,Glycerine,Gasoline,Fuel Oil min.,Fuel Oil max.,Ethylene glycol,Ethyl ether,Ether,Dowtherm,Dodecane,Diphenylamine,Dichlorodifluoromethane R-12 saturated (-40 F),Dichlorodifluoromethane R-12 saturated (120 F),Dichlorodifluoromethane R-12 saturated (0 F),Decane,Citron Oil,Chloroform,Castor Oil,Carbon Tetrachloride,Carbon Disulfide,Calcium Chloride,Bromine,Bismuth (800 F),Bismuth (1400 F),Bismuth (1000 F),Benzol,Benzine,Benzene (60 F),Benzene (150 F),Aniline,Ammonia (32 F),Ammonia (238 F),Ammonia (212 F),Ammonia (176 F),Ammonia (104 F),Alcohol (propyl),Alcohol (methyl 65 F),Alcohol (methyl 45 F),Alcohol (ethyl 32 F),Alcohol (ethyl 104 F),Acetone,Acetic acid},
+             nodes near coords,
+             nodes near coords align={east}
+]
+\addplot[xbar,
+         fill=black!30!white] table[y=compound,
+                                    x=specificheats,
+                                    col sep=comma] {specific-heats.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,26 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\begin{document}
+\tiny
+\begin{tikzpicture}[]
+\begin{axis}[height=40cm,
+             width=25cm,
+             xbar,
+             bar width=5pt,
+             xmin=0,
+             xmax=1100,
+             xmajorgrids,
+             xminorgrids,
+             minor x tick num=4,
+             xlabel={\Large Bond Energy in kJ/mol},
+             ytick=data,
+             symbolic y coords={Xe-O,Xe-F,S-S (S8),Sn-I,Sn-F,Sn-Cl,Sn-Br,Si-Si,Si-S,Si-O,Si-N,Si-I,Si-F,Si-Cl,Si-Br,S-F,Se-Se,Se=Se,S-Cl,Sb-Sb,Sb-F,Sb-Cl (SbCl5),Sb-Cl (SbCl3),S=S,S=O,P-P,P-O,P-I,P-F,P-Cl,P-Br,Pb-I,Pb-F,Pb-Cl,Pb-Br,P=S,P=O,O-O,O-F,O=O,N-O,N-N,N-F,N-Cl,N=O,N=-N,N=N,Kr-F (KrF2),I-O,I-I,I-F,I-Cl,I-Br,H-Te,H-Sn,H-Si,H-Se,H-S,H-P,H-O,H-N,H-I,H-H,H-Ge,H-F,H-Cl,H-C,H-Br,H-B,H-As,Ge-N,Ge-I,Ge-Ge,Ge-F,Ge-Cl,Ge-Br,F-F,C-Sn,C-Si,C-S,C-Pb,C-P,C-O,C-N,Cl-Cl,C-I,C-Ge,C-F,C-Cl,C-C,C-Br,C-B,C=S,C=-O,C=O,C=-N,C=N,C=-C,C=C,Br-Br,B-O,B-F,B-Cl,B-Br,B-B,At-At,As-O,As-I,As-F,As-Cl,As-Br,As-As},
+             nodes near coords,
+             nodes near coords align={east}]
+\addplot[xbar,
+         fill=black!30!white] table[x index=1,
+                                    y index=0,
+                                    col sep=comma] {bond-energies.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,91 @@
+compound,temperature,specificgravity
+Wood,,0.701
+Water (sea),77,1.025
+Water (pure),40,1
+Turpentine,,0.871
+Trichlorofluoromethane refrigerant R-11,,1.48
+Toluene,,0.865
+Terpinene,,0.85
+Styrene,,0.906
+Stearic Acid,,0.941
+Sorbaldehyde,,0.898
+Silane,,0.719
+Sea water,,1.028
+Sabiname,,0.814
+Resorcinol,,1.272
+Pyridine,,0.968
+Propylene glycol,,1.036
+Propylene,,0.516
+Propane (cold),-40,0.585
+Propane,,0.495
+Pinene,,0.858
+Phytadiene,,0.826
+Phosgene,0,1.381
+Phenol,,1.075
+Pentane,,0.755
+Parole,,0.969
+Palmitic Acid,,0.853
+Oxygen,-183,1.14
+Olive Oil,15,0.703
+Oil (Castor),,0.959
+Octane,,0.701
+Nonanol,,0.823
+Napthalene,,0.963
+Naphtha,15,0.667
+Milk,0,1.035
+Methane,-164,0.466
+Linseed Oil,,0.932
+Linolenic Acid,,0.902
+Kerosene,16,0.82
+Hydrazine,,0.797
+Hexene,,0.673
+Hexanol,,0.813
+Hexane,,0.657
+Heptane,,0.681
+Glycol,,1.11
+Glycerine (glycerol),,1.263
+Gasoline (vehicle),16,0.739
+Gasoline (natural),16,0.713
+Furforal,,1.159
+Furan,,1.421
+Fuel oil,16,0.893
+Formaldehyde,45,0.815
+Ethylene glycol,,1.1
+Ethylamine,16,0.683
+Ether,,0.716
+Ethane,-89,0.572
+Dodecane,,0.757
+Dichlorodifluoromethane refrigerant R-12,,1.315
+Decane,,0.728
+Cumene,,0.862
+Crude oil (Texas),16,0.876
+Crude oil (Mexico),16,0.976
+Crude oil (California),16,0.918
+Cresol,,1.027
+Creosote,15,1.07
+Cotton Seed Oil,15,0.929
+Coconut Oil,15,0.927
+Citric acid,,1.665
+Chloroform,,1.469
+Chlorodifluoromethane refrigerant R-22,,1.197
+Chlorine,16,1.42
+Chloride,,1.56
+Carene,,0.86
+Carbon tetrachloride,,1.589
+Carbon disulfide,,1.265
+Carbolic acid,15,0.959
+Caproic acid,,0.924
+Butane (liquid),,0.601
+Benzil,,1.084
+Benzene,,0.876
+Beer,,1.01
+Aniline,,1.022
+Ammonia (aqua),,0.826
+Alcohol (propyl),,0.802
+Alcohol (methyl),,0.791
+Alcohol (ethyl),,0.787
+Adipic acid,0,0.72
+Acetylene (cold),-85,0.62
+Acetylene,21,0.38
+Acetone,,0.787
+Acetic Acid,,1.052
