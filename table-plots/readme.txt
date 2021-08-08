@@ -24,3 +24,5 @@ Processes Fig A.18 and A.19, which were then extended to datatables, since
 this plotting both improves graphs in which one axis is an identifier by
 effectively making it a table/graph combination with the value easily read off,
 and improves tables by adding a visual dimension to compare entries.
+
+Data for solvent polarities: Miller online

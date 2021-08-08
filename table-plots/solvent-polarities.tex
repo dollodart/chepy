@@ -1,0 +1,26 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}
+\tiny
+\begin{axis}[height=30cm,width=15cm,
+    xbar,
+    bar shift=0pt,bar width=5pt,
+    xlabel={\Large Solvent Polarity Relative to Water},
+    xmin=0,xmax=1.0,
+    xmajorgrids, xminorgrids,
+    minor x tick num=1,
+    xtick={0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0},
+    x tick label style={/pgf/number format/.cd,fixed,fixed zerofill,precision=1},
+symbolic y coords={1-butanol,1-heptanol,1-hexanol,1-octanol,1-pentanol,1-propanol,2-aminoethanol,2-butanol,2-butanone,2-pentanol,2-pentanone,2-propanol,3-pentanol,3-pentanone,acetic acid,acetone,acetonitrile,acetyl acetone,aniline,anisole,benzene,benzonitrile,benzyl alcohol,carbon disulfide,carbon tetrachloride,chlorobenzene,chloroform,cyclohexane,cyclohexanol,cyclohexanone,di-n-butylphthalate,diethylene glycol,diglyme,dimethoxyethane (glyme),dimethylformamide (DMF),dimethylphthalate,dimethylsulfoxide (DMSO),dioxane,ethanol,ether,ethyl acetate,ethyl acetoacetate,ethyl benzoate,ethylene glycol,glycerin,heptane,hexane,i-butanol,methanol,methyl acetate,methyl t-butyl ether (MTBE),methylene chloride,p-xylene,pentane,pyridine,solvent,t-butyl alcohol,tetrahydrofuran(THF),toluene,water},
+    ytick=data]
+\addplot[fill=gray,
+         point meta=explicit symbolic,
+         nodes near coords,
+         nodes near coords align={west},
+         nodes={fill=white}] table[y index=0,
+                                   x index=1,
+                                   col sep=comma] {solvent-polarities.csv};
+\end{axis}
+\end{tikzpicture}
+\end{document}
