@@ -1,0 +1,62 @@
+class,name,low,high
+Metal,Cast Irons,165,180
+Polymer,Butyl Rubber,0.001,0.002
+Metal,High Carbon Steels,200,215
+Polymer,EVA,0.01,0.04
+Metal,Medium Carbon Steels,200,216
+Polymer,Isoprene (IR),0.0014,0.004
+Metal,Low Carbon Steels,200,215
+Polymer,Natural Rubber (NR),0.0015,0.0025
+Metal,Low Alloy Steels,201,217
+Polymer,Neoprene (CR),0.0007,0.002
+Metal,Stainless Steels,189,210
+Polymer,Polyurethane Elastomers (elPU),0.002,0.003
+Metal,Aluminium Alloys,68,82
+Polymer,Silicone Elastomers,0.005,0.02
+Metal,Copper Alloys,112,148
+Polymer,Thermoplastic (ABS),1.1,2.9
+Metal,Lead Alloys,12.5,15
+Polymer,Cellulose Polymers (CA),1.6,2
+Metal,Magnesium Alloys,42,47
+Polymer,Ionomer (I),0.2,0.424
+Metal,Nickel Alloys,190,220
+Polymer,Nylons (PA),2.62,3.2
+Metal,Titanium Alloys,90,120
+Polymer,Polycarbonate (PC),2,2.44
+Metal,Zinc Alloys,68,95
+Polymer,PEEK,3.5,4.2
+Polymer,Polyethylene (PE),0.621,0.896
+Ceramic,Borosilicate Glass,61,64
+Polymer,PET,2.76,4.14
+Ceramic,Glass Ceramic,64,110
+Polymer,Acrylic (PMMA),2.24,3.8
+Ceramic,Silica Glass,68,74
+Polymer,Acetal (POM),2.5,5
+Ceramic,Soda-Lime Glass,68,72
+Polymer,Polypropylene (PP),0.896,1.55
+Ceramic,Brick (porous),10,50
+Polymer,Polystyrene (PS),2.28,3.34
+Ceramic,Concrete (typical),25,38
+Polymer,Polyurethane Thermoplastics (tpPU),1.31,2.07
+Ceramic,Stone,6.9,21
+Polymer,PVC,2.14,4.14
+Ceramic,Alumina,215,413
+Polymer,Teflon (PTFE),04,0.552
+Ceramic,Aluminium Nitride,302,348
+Polymer,Epoxies,2.35,3.075
+Ceramic,Boron Carbide,400,472
+Polymer,Phenolics,2.76,4.83
+Ceramic,Silicon,140,155
+Polymer,Polyester,2.07,4.41
+Ceramic,Silicon Carbide,300,460
+Ceramic,Silicon Nitride,280,310
+Polymer,Flexible Polymer Foam (VLD),0.0003,0.001
+Ceramic,Tungsten Carbide,600,720
+Polymer,Flexible Polymer Foam (LD),0.001,0.003
+Polymer,Flexible Polymer Foam (MD),0.004,0.012
+Ceramic,Aluminium/Silicon Carbide,81,100
+Polymer,Rigid Polymer Foam (LD),0.023,0.08
+Polymer,CFRP,69,150
+Polymer,Rigid Polymer Foam (MD),0.08,0.2
+Polymer,GFRP,15,28
+Polymer,Rigid Polymer Foam (HD),0.2,0.48

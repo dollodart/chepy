@@ -1,0 +1,62 @@
+class,name,low,high
+Metal,Cast Irons,22,54
+Polymer,Butyl Rubber,0.07,0.1
+Metal,High Carbon Steels,27,92
+Polymer,EVA,0.5,0.7
+Metal,Medium Carbon Steels,12,92
+Polymer,Isoprene (IR),0.07,0.1
+Metal,Low Carbon Steels,41,82
+Polymer,Natural Rubber (NR),0.15,0.25
+Metal,Low Alloy Steels,14,200
+Polymer,Neoprene (CR),0.1,0.3
+Metal,Stainless Steels,62,280
+Polymer,Polyurethane Elastomers (elPU),0.2,0.4
+Metal,Aluminium Alloys,22,35
+Polymer,Silicone Elastomers,0.03,0.5
+Metal,Copper Alloys,30,90
+Polymer,Thermoplastic (ABS),1.19,4.30
+Metal,Lead Alloys,5,15
+Polymer,Cellulose Polymers (CA),2.5
+Metal,Magnesium Alloys,12,18
+Polymer,Ionomer (I),1.14,3.43
+Metal,Nickel Alloys,80,110
+Polymer,Nylons (PA),2.22,5.62
+Metal,Titanium Alloys,14,120
+Polymer,Polycarbonate (PC),2.1,4.60
+Metal,Zinc Alloys,10,100
+Polymer,PEEK,2.73,4.30
+Polymer,Polyethylene (PE),1.44,1.72
+Ceramic,Borosilicate Glass,0.5,0.7
+Polymer,PET,4.5,5.5
+Ceramic,Glass Ceramic,1.4,1.7
+Polymer,Acrylic (PMMA),0.7,1.6
+Ceramic,Silica Glass,0.6,0.8
+Polymer,Acetal (POM),1.71,4.2
+Ceramic,Soda-Lime Glass,0.55,0.7
+Polymer,Polypropylene (PP),3,4.5
+Ceramic,Brick (porous),2
+Polymer,Polystyrene (PS),0.7,1.1
+Ceramic,Concrete (typical),0.35,0.45
+Polymer,Polyurethane Thermoplastics (tpPU),1.84,4.97
+Ceramic,Stone,0.7,1.5
+Polymer,PVC,1.46,5.12
+Ceramic,Alumina,3.3,4.8
+Polymer,Teflon (PTFE),1.32,1.8
+Ceramic,Aluminium Nitride,2.5,3.4
+Polymer,Epoxies,0.4,2.22
+Ceramic,Boron Carbide,2.5,3.5
+Polymer,Phenolics,0.79,1.21
+Ceramic,Silicon,0.83,0.94
+Polymer,Polyester,1.09,1.70
+Ceramic,Silicon Carbide,2.5,5
+Ceramic,Silicon Nitride,4,6
+Polymer,Flexible Polymer Foam (VLD),0.005,0.02
+Ceramic,Tungsten Carbide,2,3.8
+Polymer,Flexible Polymer Foam (LD),0.015,0.05
+Polymer,Flexible Polymer Foam (MD),0.03,0.09
+Ceramic,Aluminium/Silicon Carbide,15,24
+Polymer,Rigid Polymer Foam (LD),0.002,0.02
+Polymer,CFRP,6.1,88
+Polymer,Rigid Polymer Foam (MD),0.007,0.049
+Polymer,GFRP,7,23
+Polymer,Rigid Polymer Foam (HD),0.024,0.091

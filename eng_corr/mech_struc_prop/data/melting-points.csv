@@ -1,0 +1,57 @@
+class,name,low,high
+Metal,Cast Irons,1130,1250
+Polymer,Butyl Rubber (*),-73,-63
+Metal,High Carbon Steels,1289,1478
+Polymer,EVA (k),-73,-23
+Metal,Medium Carbon Steels,1380,1514
+Polymer,Isoprene (IR) C),-83,78
+Metal,Low Carbon Steels,1480,1526
+Polymer,Natural Rubber (NR),-78,-63
+Metal,Low Alloy Steels,1382,1529
+Polymer,Neoprene (CR) (k),-48,-43
+Metal,Stainless Steels,1375,1450
+Polymer,Polyurethane Elastomers (elPU),-73,-23
+Metal,Aluminium Alloys,475,677
+Polymer,Silicone Elastomers (*),-123,-73
+Metal,Copper Alloys,982,1082
+Polymer,Thermoplastic (ABS) (*),88,128
+Metal,Lead Alloys,322,328
+Polymer,Cellulose Polymers (CA) (*),-9,107
+Metal,Magnesium Alloys,447,649
+Polymer,Ionomer (I) (*),27,77
+Metal,Nickel Alloys,1435,1466
+Polymer,Nylons (PA) (*),44,56
+Metal,Titanium Alloys,1477,1682
+Polymer,Polycarbonate (PC) (*),142,205
+Metal,Zinc Alloys,375,492
+Polymer,PEEK (*),143,199
+Ceramic,Polyethylene (PE) (k),-25,-15
+Ceramic,Borosilicate Glass (*),450,602
+Polymer,PET (*),68,80
+Ceramic,Glass Ceramic (*),563,1647
+Polymer,Acrylic (PMMA) (*),85,165
+Ceramic,Silica Glass (*),957,1557
+Polymer,Acetal (POM) (*),-18,8
+Ceramic,Soda-Lime Glass (*),442,592
+Polymer,Polypropylene (PP),-25,-15
+Ceramic,Brick (porous),927,1227
+Polymer,Polystyrene (PS) (k),74,110
+Ceramic,Concrete (typical),927,1227
+Polymer,Polyurethane Thermoplastics (tpPU),120,160
+Ceramic,Stone,1227,1427
+Polymer,PVC,75,105
+Ceramic,Alumina,2004,2096
+Polymer,Teflon (PTFE),107,123
+Ceramic,Aluminium Nitride,2397,2507
+Ceramic,Boron Carbide,2372,2507
+Ceramic,Silicon,1407,1412
+Ceramic,Silicon Carbide,2152,2500
+Ceramic,Silicon Nitride,2388,2496
+Polymer,Flexible Polymer Foam (VLD) (*),112,177
+Ceramic,Tungsten Carbide,2827,2920
+Polymer,Flexible Polymer Foam (LD) (*),112,177
+Polymer,Flexible Polymer Foam (MD) (*),112,177
+Ceramic,Aluminium/Silicon Carbide,525,627
+Polymer,Rigid Polymer Foam (LD) (*),67,171
+Polymer,Rigid Polymer Foam (MD) (*),67,157
+Polymer,Rigid Polymer Foam (HD) (*),67,171

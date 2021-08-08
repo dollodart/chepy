@@ -1,0 +1,62 @@
+class,name,yield stress low,yield stress high,tensile strength low,tensile strength high
+Polymer,Butyl Rubber,2,3,5,10
+Metal,Cast Irons,215,790,350,1000
+Polymer,EVA,12,18,16,20
+Metal,High Carbon Steels,400,1155,550,1640
+Polymer,Isoprene (IR),20,25,20,25
+Metal,Medium Carbon Steels,305,900,410,1200
+Polymer,Natural Rubber (NR),20,30,22,32
+Metal,Low Carbon Steels,250,395,345,580
+Polymer,Neoprene (CR),3.4,3.4,24
+Metal,Low Alloy Steels,400,1100,460,1200
+Polymer,Polyurethane Elastomers (elPU),25,51,25,51
+Metal,Stainless Steels,170,1000,480,2240
+Polymer,Silicone Elastomers,2.4,5.5,2.4,5.5
+Metal,Aluminium Alloys,30,500,58,550
+Polymer,Thermoplastic (ABS),18.5,51,27.6,55.2
+Metal,Copper Alloys,30,500,100,550
+Polymer,Cellulose Polymers (CA),25,45,25,50
+Metal,Lead Alloys,8,14,12,20
+Polymer,Ionomer (l),8.3,15.9,17.2,37.2
+Metal,Magnesium Alloys,70,400,185,475
+Polymer,Nylons (PA),50,94.8,90,165
+Metal,Nickel Alloys,70,1100,345,1200
+Polymer,Polycarbonate (PC),59,70,60,72.4
+Metal,Titanium Alloys,250,1245,300,1625
+Polymer,PEEK,65,95,70,103
+Metal,Zinc Alloys,80,450,135,520
+Polymer,Polyethylene (PE),17.9,29,20.7,44.8
+Polymer,PET,56.5,62.3,48.3,72.4
+Ceramic,Borosilicate Glass (k),264,384,22,32
+Polymer,Acrylic (PMMA),53.8,72.4,48.3,79.6
+Ceramic,Glass Ceramic (*),750,2129,62,177
+Polymer,Acetal (POM),48.6,72.4,60,89.6
+Ceramic,Silica Glass,1100,1600,45,155
+Polymer,Polypropylene (PP),20.7,37.2,27.6,41.4
+Ceramic,Soda-Lime Glass (*),360,420,31,35
+Polymer,Polystyrene (PS),28.7,56.2,35.9,56.5
+Ceramic,Brick (porous) (*),50,140,7,14
+Polymer,Polyurethane Thermoplastics (tpPU),40,53.8,31,62
+Ceramic,Concrete (typical) (*),32,60,2,6
+Polymer,PVC,35.4,52.1,40.7,65.1
+Ceramic,Stone (*),34,248,5,17
+Polymer,Teflon (PTFE),15,25,20,30
+Ceramic,Alumina (*),690,5500,350,665
+Polymer,Epoxies,36,71.7,45,89.6
+Ceramic,Aluminium Nitride (*),1970,2700,197,270
+Polymer,Phenolics,27.6,49.7,34.5,62.1
+Ceramic,Boron Carbide (*),2583,5687,350,560
+Polymer,Polyester,33,40,41.4,89.6
+Ceramic,Silicon (*),3200,3460,160,180
+Ceramic,Silicon Carbide C),1000,5250,370,680
+Ceramic,Flexible Polymer Foam (VLD),0.01,0.12,0.24,0.85
+Ceramic,Silicon Nitride (*),524,5500,690,800
+Polymer,Flexible Polymer Foam (LD),0.02,0.3,0.24,2.35
+Ceramic,Tungsten Carbide (*),3347,6833,370,550
+Polymer,Flexible Polymer Foam (MD),0.05,0.7,0.43,2.95
+Polymer,Rigid Polymer Foam (LD),0.3,1.7,0.45,2.25
+Ceramic,Aluminium/Silicon Carbide,280,324,290,365
+Polymer,Rigid Polymer Foam (MD),0.4,3.5,0.65,5.1
+Polymer,CFRP,550,1050,550,1050
+Polymer,Rigid Polymer Foam HD,0.8,12,1.2,12.4
+Polymer,GFRP,110,192,138,241
