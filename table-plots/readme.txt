@@ -8,6 +8,12 @@ proportional areas are not proportional magnitudes. In the given base of 10
 for the logarithmic axis, a twice as large area is 100 times the quantity, and
 generally, a ratio of areas of x is 10^x ratio of magnitudes.
 
+This is limited to tables containing only two columns, one key or
+identifier column, and one value column. If a table has more than two columns,
+it would be possible to make a stacked bar chart, color the bars differently, and
+use different scales for them: but this is visually unappealing and difficult
+to interpret and so not attempted here.
+
 There is a question about pagination, since sometimes the quantity of data is
 very large. Obviously one cannot print, on usual printers, 40 cm wide or tall
 paper (because the text used in the graphs must be legibly large and is often
