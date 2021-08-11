@@ -1,11 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
-def dn(n):
-    """
-    The algebraic form for the geometric sequence was provided by Wikipedia.
-    """
-    return .127 * 92 ** ((36 - n) / 39)
+from chepy.manufac_data.awg import dn
 
 rho = dict()
 with open('resistivities.csv', 'r') as _:
