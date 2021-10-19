@@ -38,18 +38,16 @@ df_e[schedules] = error[schedules]
 
 def plot_checkgeo():
 
-    deltas = np.log(df['NPS'].values[1:])- np.log(df['NPS'].values[:1])
+    deltas = np.log(df['NPS'].values[1:])- np.log(df['NPS'].values[0])
     deltas = deltas / deltas.max()
-    #deltas = deltas[:-7]
 
     x = np.linspace(0, 1, len(deltas))
     s, i, r2, sigma, p = linregress(x, deltas)
     plot, = plt.plot(x, deltas, 'o', label=f'NPS s={s:.2f} r2={r2:.2f}') # in sorted values
     plt.plot(x, tuple(s*x + i for x in x), color=plot.get_color())
 
-    deltas = np.log(df['OD'].values[1:]) - np.log(df['OD'].values[:1])
+    deltas = np.log(df['OD'].values[1:]) - np.log(df['OD'].values[0])
     deltas = deltas / deltas.max()
-    #deltas = deltas[:-7]
 
     s, i, r2, sigma, p = linregress(x, deltas)
     plot, = plt.plot(x, deltas, 'o', label=f'OD s={s:.2f} r2={r2:.2f}') # in sorted values
@@ -58,7 +56,7 @@ def plot_checkgeo():
     plt.plot((0, 1), (0,1), 'k-') # black line
 
     plt.xlabel('Sorted Index (normalized to 0--1)')
-    plt.ylabel('Logarithmic Difference (normalized to 0--1)')
+    plt.ylabel('Logarithmic Difference to Reference (normalized to 0--1)')
 
     plt.legend()
 
