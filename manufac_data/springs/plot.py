@@ -16,15 +16,36 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
+dct = dict()
+dct['1'] = 'EN 10270-3-1.4310'
+dct['2'] = 'EN 10270-3-1.4310'
+dct['3'] = 'EN 10270-1-SH'
+dct['3.1'] = 'EN 10270-3-1.4310'
+dct['4'] = 'EN 10270-1-SH'
+dct['4.1'] = 'EN 10270-3-1.4310'
+dct['5'] = 'EN 10270-1-SH'
+dct['5.1'] = 'EN 10270-3-1.4310'
+dct['6'] = 'EN 10270-1-SH'
+dct['6.1'] = 'EN 10270-3-1.4310'
+dct['7'] = 'EN 10270-1-SH'
+dct['7.1'] = 'EN 10270-3-1.4310'
+dct['8'] = 'EN 10270-1-SH'
+dct['8.1'] = 'EN 10270-1-SH'
+
+
 frames = []
 for i in range(1, 9):
     dfi = pd.read_csv(f'data/t{i}.tsv', delimiter='\t')
     dfi['page'] = i
     if 'Fn.1' in dfi.columns:
         dfc = dfi.drop(['Fn', 'c', 'Cat.no'], axis=1)
+        dfc['steel'] = dct[str(i) + '.1']
         dfd = dfi.drop(['Fn.1', 'c.1', 'Cat.no.1'],axis=1)
+        dfd['steel'] = dct[str(i)]
         dfc.columns = dfd.columns # rename columns, not assignment of values
         dfi = pd.concat((dfc, dfd),ignore_index=True)
+    else:
+        dfi['steel'] = dct[str(i)]
     frames.append(dfi)
 
 df = pd.concat(frames, ignore_index=True)
@@ -91,7 +112,7 @@ def plot_Fn_Fncalc():
 def plot_g():
     plt.xlabel('Category Number')
     plt.ylabel('Calculated Shear Modulus in MPa') # 1 MPa = 1 N/mm^2
-    for n, gr in df.groupby('page'):
+    for n, gr in df.groupby('steel'):
         plt.plot(gr['g'], 'o', label=n)
 
     plt.plot([df.index.min(),df.index.max()], [73_000]*2, 'k-', label='G(EN 10270-3)') # Mollifico Modenese
@@ -122,7 +143,7 @@ def plot_Fn():
     plt.ylabel('Maximum Force in N')
     sdf = df.sort_values(by='Fn')
     sdf['sorted_index'] = range(n)
-    for nn, gr in sdf.groupby('page'):
+    for nn, gr in sdf.groupby('steel'):
         plt.semilogy(gr['sorted_index'],gr['Fn'],'o-',label=nn)
     plt.title(f"$\mu$ = {df['Fn'].mean():.2E}/N, $\sigma$ = {df['Fn'].std():.2E}/N")
 
@@ -322,7 +343,6 @@ def tabulation():
     lowest_corrs()
 
 if __name__ == '__main__':
-
     definition_checks()
     data_checks()
     distributions()
