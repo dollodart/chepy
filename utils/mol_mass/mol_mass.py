@@ -1,9 +1,16 @@
 import csv
+import os.path as osp
 from chepy.utils.string2symbols import string2symbols, symbols2numbers
 
-with open('element-atom-weights.csv', mode='r') as infile:
+data_file = osp.join(osp.dirname(__file__), 'element-atom-weights.csv')
+
+with open(data_file, mode='r') as infile:
     mol_mass = csv.reader(infile)
     mol_mass = {k: float(v) for k, v in mol_mass}
+
+def formula2molmass(s):
+    symbols = string2symbols(s)
+    return sum([mol_mass[k] for k in symbols])
 
 # example usage
 if __name__ == '__main__':

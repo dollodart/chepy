@@ -1,1 +1,1 @@
-from .mol_mass import mol_mass
+from .mol_mass import formula2molmass
