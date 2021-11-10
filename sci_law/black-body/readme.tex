@@ -1,0 +1,263 @@
+\documentclass{article}
+
+\begin{document}
+\section{Purpose}
+
+The purpose of this directory was originally is to find what the apparent color
+of a black body is, which is quite distinct from its black body color
+temperature defined as the wavelength of maximum intensity given by Wien's
+displacement law. In particular, the apparent color is apparent at temperatures
+far below the black body color temperature because the human eye cannot detect
+the majority of the color in the infrared and is integrating over a small
+region of the tail of the black body curve.
+
+One might first wish to ask, what would an ideal eye would see if it had equal
+sensitivities to all wavelengths of light? But an ideal eye isn't
+scientifically meaningful to ask since color perception is a psychological
+phenomenon and a so-called \emph{qualia}. One can instead only ask how the
+colors perceived depend on the measurable spectral intensity.
+
+\section{Color Perception} % this discussion is effectively a review of the cited conference proceeding and Wikipedia articles
+
+The eye does not see the spectral distribution, but its convolution with the
+so-called cone fundamentals, or sensitivities of the cones of the eye. That is,
+
+$$S_i = \int f_i(\lambda) g(\lambda) \, d\lambda \text{ where } i
+\in \{r, g, b\}$$
+
+The cone fundamenals are rather broad (blue spans ~ 100 nm, green and red~ 200
+nm, where span is defined as ~5\% of maximum sensitivity) and the perception of
+a color spectrum beyond monochromatic colors is made possible by this. For
+example, a light blue is a mix of all color spectrum (white light) with blue
+light, while a dark blue is exclusively blue frequencies. The extraordinary
+diversity in color perception is due to the many possible values for each
+signal received, though it is insignificant relative to the total number of
+possible spectral distributions (a mathematically precise definition of the
+relative cardinalities is wanting). There are also psychological phenomena that
+need to be accounted for in color perception, including contrast.
+
+Only three scaled delta functions of monochromatic colors, RGB, are needed to
+reproduce a large range of the human color perception. Where they do not it is
+not because of the single-valuedness, since in the given model the signal
+received is merely the integral, which is a single integer value just like the
+intensity of a monochromatic frequency. Rather, it is because the broad range
+of sensitivies of the cones, or more exactly the overlap of the sensitivities
+of the cones, allows only a subset of relative intensity ratios to be obtained
+when using 3 monochromatic frequencies. In particular, disregard total
+brightness (which has an effect on perceived color) and consider the
+ratios $G/R$ and $B/R$ where these are monochromatic frequencies.  These
+ratios, even if varied independently in $\mathbb{R}^2$ to fully cover the
+parameterization domain making a Cartesian grid, only cover part of the
+convoluted parameterization domain, that is, $S_g/S_r$ and $S_b/S_r$. This is
+shown in the triangle of linear interpolation in the $xy$ chromaticity
+diagrams. In fact, the definitions of $x$ and $y$ in the chromaticity diagram
+are similar to the ratios given here in ignoring the total brightness. The $x$
+and $y$ are normalized intensities of components, so that the third components
+fraction is given by balance as $z = 1 - x - y$. Hence the color gamut for the
+3-cone human perception may be represented on two dimensions.
+
+RGB is a color specification, not a set of three monochromatic frequencies--the
+display merely has to display three colors which appear red, green, and blue,
+which can be further separated from each other. Those RGB displays which have
+red at a higher wavelength and blue at a lower wavelength (thus green more
+separated from blue) will have a fuller color gamut than another because they
+will be vary $S_r$ and $S_b$ over a greater fraction of the grid defined by
+$S_r \times S_b$. It also isn't necessary the display have three monochromatic
+frequencies of light: in practice, they may have spectral distributions
+corresponding to the colors, but the same reasoning applies as to their
+positions and shapes to their ability to reproduce a fuller color gamut, that
+is, narrower and farther apart will have a fuller color gamut. From the paper \emph{Color
+Spaces for Computer Graphics}, a color triangle on a chromaticity diagram was
+defined only for monochromatic primary colors, though. From that same reference
+there is:
+
+\begin{enquote}
+Any three wavelengths of light can be mixed in varying proportions to create
+many different colors. Some sets of three wavelengths can produce more colors
+than others, but the particular characteristics of the three human receptor
+systems make it impossible for any such set of three primary colors to
+duplicate all colors. The three primaries which can be mixed to produce the
+greatest number of colors are particular wavelengths of red, green and blue.
+For this reason, most color display systems are based on three light sources
+which are as close to these colors as possible.
+\end{enquote}
+
+The $xy$ chromaticity region is highly non-linear, owing to the highly
+non-linear convolutions with the cone fundamentals. Any finite set of
+monochromatic colors will only approximate the human perception color gamut so
+long as it exists inside the chromaticity region (and you can't cheat by
+choosing some wavelength outside the chromaticity region like 350 nm for blue
+or 800 nm for red, because the cone fundamental sensitivity at that wavelength
+is too low for you to practically do that).
+
+\subsection{Brightness and the Color Solid}
+
+There is an important additional dimension to color perception than just the
+relative intensities of the component lights, and that is the total intensity.
+That additional dimension makes a color solid. If you use $R$, $G$, and $B$ as
+coordinate axes you would get a color solid which accounts for all color perception
+outside of psychological effects. But it is better to specify $x$, $y$, and
+total brightness as the three dimensions.
+
+Perhaps the simplest measure of brightness, which is related to lightness, is
+the mean of RGB, that is, $\mu = (R + G + B)/3$. The chromaticity diagram,
+which is generally drawn at a constant lightness (which is a relative
+brightness).  When the lightness/brightness (related to intensity) goes to zero
+necessarily all colors will appear black. As intensity increases, though, a
+color does not approach white. This fact is reflected by sphere color solids 
+e.g., Runge's or Munsell's color sphere, with the poles corresponding to black and
+white, and the latitudes being colors. This limiting behavior also
+distinguishes the HSL and HSV cylindrical models (see \S\ref{sec:sat-hue-trans}).
+
+\subsection{Hue/Saturation Coordinate Transform}\label{sec:sat-hue-trans}
+
+Hue and Saturation are alternative descriptions of color to $R$, $G$, $B$.
+Hue and saturation are the result of a coordinate transform of the $xy$
+chromaticity diagram to place the origin on the white point and describe the
+coordinates in terms of $r\theta$. As before observed, the $xy$ chromaticity
+diagram is a slice of the color solid of constant lightness, and a third
+dimension corresponding to a cylindrical coordinate would be required to
+reconstruct the color solid. But since lightness is related, however
+non-linearly, to intensity (and saturation and hue are largely independent of
+this), it is possible to section this and have the other two degrees of freedom
+fully represented.
+
+In the Hue/Saturation/Value coordinate transforms, the third dimension
+corresponds to intensity, and vanishes to black when the intensity goes to
+zero, but remains the same color when the intensity goes to infinity, as is
+physically expected (c.f. figure 10a of \emph{ibid}). In an alternative
+Hue/Relative Chroma/Intensity (this is the name given in the paper, but modern
+nomenclature is Hue/Saturation/Lightness) color space, the perceived color goes
+to white as the intensity goes to infinity (c.f. figure 8a of \emph{ibid}).
+
+The conversion from $xy$-chromaticity diagrams (which omit the effect on color
+perception of the lightness $\mu$) to cylindrical models of hue, saturation,
+and lightness was due to the desire to make a more intuitive set of measures
+used for mixing colors like paints. Most notably, mixing black and white paint
+with various saturations of hues to make different lightness. In practice it is
+not possible for lightness and saturation to be independent. Mixing in black or
+white changes both lightness and saturation since saturation is before defined
+as \enquote{the absence of whiteness}; one sees the utility of the Hue/Relative
+Chroma/Intensity color solid in that there is a symmetry in going toward black
+at one end and white at the other, which would correspond to adding black and
+white paint.
+
+The color chooser in Microsoft PowerPoint 2017 has an HSL color model Hue, Sat
+(saturation), and Lum (probably luminance). A zero saturation color is gray and
+a maximum saturation color is the qualitatively purest of that color in the
+square with the displayed luminance they chose.  They include a third slider
+for luminance which can cause any color to go from black to white--this accords
+with the intuitive notion of mixing black and white paint, but of course
+changing luminance without a relative chroma (which is relative to the
+intensity) would not do this, and so this is an incorrect choice of
+nomenclature, however, one that appears standardized in mondern terms since
+Hue/Relative Chroma/Intensity is called Hue/Saturation/Lightness.
+
+\subsection{Mathematical Properties of Spectra Related to Hue/Saturation/Lightness}
+
+In general, I think it is advantageous to define Hue/Saturation/Value in
+terms of mathematical properties of spectra, even if that definition is
+quantitatively inexact. 
+
+\begin{itemize}
+\item lightness is increasing with a scaling in the intensity (I see already
+that brightness is not necessarily proportional to luminance, which is the
+optics name for the general intensity, but they increase).
+\item saturation is increasing with a decrease in white baseline, and also an
+increase in chromatic peak prominence (peak prominence is the height of the
+peak relative to the nearest valley, both of which are defined as extrema in
+the spectral curve).
+\item hue is changing when the intensity spectrum is shifted (see mathematical
+definition of shift). It isn't meaningful to speak about increasing hue, in the
+same way that it isn't very meaningful to speak about increasing angle, since
+the angle change is an orientation change, not a magnitude change, and both the
+origin and the orientation (meaning clockwise or counterclockwise) of color
+wheels is arbitrary.
+\end{itemize}
+
+Since mixing paints is a physical phenomenon, and this model was made for such
+a physical phenomenon, it can be seen that these alternative descriptions are
+actually more physical---adding white paint to colored paint, assuming
+superposition, will only increase the baseline reflectance, while adding black
+paint to colored paint, assuming superposition, will only decrease the baseline
+reflectance. Both of these would generally change lightness and saturation,
+though not (by definition) relative chroma.
+
+The saturation is an important measure because most colors we see are
+illuminated by sunlight, which is (approximately) white at sea level after
+absorption and other phenomena such as scattering. Since the absorption of
+wavelengths of a particular light are always partial, and there tends to be a
+reflection of the source light, white light is always a component. Said another
+way, most objects viewed have a significant non-zero baseline in addition to
+peaks and troughs. Saturation increases as a baseline of white light is
+subtracted and is maximum when zero, though there may be other complications.
+
+The corresponding changes in spectra to changes in the color perception
+coordinates of the HSV model are given in \texttt{illus.py}. Note, however,
+that because the same colors perceived by humans can have an infinite number of
+spectra, one should take this relationship as causally from changes to spectra
+to changes in perception. Several different changes in the spectra can effect
+the same change in perception. In the illustration a broad-band spectrum across
+the whole visible range is given, but only three monochromatic frequencies are
+needed to illustrate the changes in color perception that would come from
+'spectral changes' (that is, just let the spectrum correspond to the
+frequencies in a given RGB color model).
+
+\subsection{Psychometric Models}
+
+Psychometric models of color perception usually involve other measured such as
+distance of a color from the white point than just its RGB value---but they
+don't introduce other dimensions, because the physical input to the brain from
+the eyes is complete with an RGB (or HSL, or HSV, or other 3-dimensional)
+color model. There are psychological phenomena where the apparent brightness of a
+color at the same physical brightness differs (colors tend to appear brighter,
+even by a factor of 2, than white at the same brightness). In addition,
+juxtaposition of colors can have an effect on the perception of each. Note here
+brightness is not brilliance or intensity.
+
+\subsubsection{Perceptual Uniformity}
+
+The major update on the 1931 CIE diagram in later years was in developing color
+models which corresponded to perception, including the just discussed
+coordinate transform of the $xy$ chromaticity diagram. Also what was changed
+was the $xy$-chromaticity diagram scaling so that displayed colors would have
+perceptual uniformity, which is the perception of equal gradation everywhere. 
+
+One application where this is relevant is in using color maps for quantitative
+data, e.g., for filled contour plots or their almost-continuous equivalent heat
+maps (see matplotlib's available perceptually uniform color maps).
+
+\subsection{A note on ROY G BIV classification}
+
+As part of the original classification of colors, indigo must have referred to
+a completely saturated, monochromatic (single wavelength) light in the spectrum
+from 400nm to 700nm. It was defined to symmetrize the monochromatic colors with
+green at the center in Red-Orange-Yellow-Green-Blue-Indigo-Violet, but it is
+difficult for humans to tell any difference between monochromatic shades of
+blue, so it appears there is only blue and violet after green. Now modern
+definitions of indigo may be a \enquote{dark blue}, which is a perception
+achieved by mixing with black, which is actually just an absence of light or
+brightness, and would maintain the monochromaticity. However, I have seen
+the indigo RGB defined as $(75,0,130)$, which has a high component of
+red light and clearly doesn't correspond to a monochromatic light.
+
+\section{About Shades of Gray}
+
+If gray is a mixture of white and black, are the shades of gray only due to
+changes in baseline intensity? That is, can gray be represented just by scaling
+the uniform energy spectrum? Yes, in the RGB model, grays are equal values of
+$R$, $G$, and $B$ between white (8-bit convention 255) and black (8-bit
+convention 0). In the HSL model, grays are at saturation 0 (for any hue) and
+vary by luminance between white (8-bit convention 255) and black (8-bit
+convention 0).
+
+Of course, slightly deviant values, such as an RGB of $(100, 101, 100)$, will
+still appear gray. But gray scale is defined as 1-dimensional.
+
+\section{References}
+
+\noindent Joblove, George~H., and Donald~Greenberg. "Color spaces for computer graphics."
+\emph{Proceedings of the 5th annual conference on Computer graphics and
+interactive techniques}. 1978.
+
+\end{document}
