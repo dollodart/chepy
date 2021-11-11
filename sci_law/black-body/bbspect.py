@@ -5,6 +5,8 @@ from math import floor
 
 alpha = 2 * h / c**2  # J*s/(m/s)^2=J*s^3/m^2 = kg*s
 beta = h / kB  # J*s/(J/K) = K*s
+DRAPER_POINT = 798. # K
+SUN_SURFACE_TEMPERATURE = 5778. # K
 
 #print(f'alpha={alpha:.2E}kg*s\n' + 
 #      f'beta={beta:.2E}K*s')
@@ -16,7 +18,7 @@ def blterm(nuoverT):
 
 blterm = np.frompyfunc(blterm, 1, 1) # creates numpy ufunc
 
-def logB(nu, T):
+def logBnu(nu, T):
     return np.log10(alpha) + 3 * np.log10(nu) - blterm(nu/T)
 
 lmbds = np.arange(380., 740., 10.) * 1.e-9  # m
@@ -32,18 +34,19 @@ Tlb = 300. + 273.15
 Tub = 1500. + 273.15
 Trange = np.linspace(Tlb, Tub, 20)
 
-Trange, nus = np.meshgrid(Trange, nus, indexing='ij')
+Trange_m, nus_m = np.meshgrid(Trange, nus, indexing='ij')
 # T varies along col (const. along row), nu varies along row (const. along col)
 
-y1 = logB(nus, Trange)
-y = 10**(y1 - np.log10(h * nus) + np.log10(c))
+y = logBnu(nus_m, Trange_m)
+Blambda = 10**(y - np.log10(h * nus_m) + np.log10(c))
 dx = lmbds[1:] - lmbds[:-1]
-integral = y[:,:-1] @ dx 
+#integral = Blambda[:,:-1] @ dx # non-uniform dx
+integral = Blambda.sum(axis=1) * dx[0] # uniform dx
 # col sum (=sum of columns), usual matrix operation, integrating with respect to nu (which varies along row)
 # ensure correct units (and integration variable), but oom and trends appear as expected
 
 def plot_spectrum():
-    Bnu_format = r'$B_\nu/(m^{-2}\cdot s^{-1}\cdot Hz^{-1})$'
+    Bnu_format = r'$\log_{10} B_\nu/(m^{-2}\cdot s^{-1}\cdot Hz^{-1})$'
 
     fig, ax = plt.subplots()
     ax.set_title('Spectrum at Different Temperatures')
@@ -61,9 +64,49 @@ def plot_integrated_spectrum():
     ax.set_title('Integrated Spectrum over Visible Range versus Temperature')
     ax.set_xlabel('Temperature in K')
     ax.set_ylabel(Bnu_integral_fmt)
-    ax.semilogy(Trange[:,0], integral, 'b-')
-    ax.semilogy([798, 798], [min(integral), max(integral)], 'k-', label='draper point')
+    ax.semilogy(Trange, integral, 'b-')
+    ax.semilogy([DRAPER_POINT, DRAPER_POINT], [min(integral), max(integral)], 'k-', label='draper point')
     ax.legend()
+
+def plot_rgb():
+    # convolution of the black body spectrum with the cone fundamentals
+
+    from cfunds import l, r, g, b
+    l *= 1e-9 # from nanometers to meters
+    nus = c / l
+    Trange = np.arange(DRAPER_POINT, SUN_SURFACE_TEMPERATURE, 50.)
+    Trange_m, nus_m = np.meshgrid(Trange, nus, indexing='ij')
+
+    y = logBnu(nus_m, Trange_m)
+    Blambda = 10**(y - np.log10(h * nus_m) + np.log10(c))
+
+    dx = l[1:] - l[:-1]
+
+    # if < machine precision (nan), doesn't contribute to integral and set to zero
+    # this amounts to weighing each Riemannian rectangle by the cone fundamentals
+    dxr = dx * np.nan_to_num(r[1:])
+    dxg = dx * np.nan_to_num(g[1:])
+    dxb = dx * np.nan_to_num(b[1:])
+
+#    # integration operation
+    rint = Blambda[:,:-1] @ dxr
+    gint = Blambda[:,:-1] @ dxg
+    bint = Blambda[:,:-1] @ dxb
+
+#    # normalize
+    tot = rint + gint + bint
+    r = rint / tot
+    g = gint / tot
+    b = bint / tot
+#
+    plt.figure()
+    plt.plot(Trange, r, 'r')
+    plt.plot(Trange, g, 'g')
+    plt.plot(Trange, b, 'b')
+
+    plt.xlabel('Temperature in K')
+    plt.ylabel('RGB Component of Black Body Radiation')
+
 
 def plot_spectrum_contour():
 
@@ -97,7 +140,8 @@ def verify_Draper_point():
     print(f'Ratio Black-Body @ Draper Point to Solar={imp/impsol:.2E}')
 
 if __name__ == '__main__':
-    verify_Draper_point()
-    plot_spectrum_contour()
+    #verify_Draper_point()
+    #plot_spectrum_contour()
     plot_integrated_spectrum()
+    plot_rgb()
     plt.show()
