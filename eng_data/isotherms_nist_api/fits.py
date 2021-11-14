@@ -66,9 +66,13 @@ if __name__ == '__main__':
 
     ## this gives the exponents as the 'constants' (empirical model has two parameters, coefficient and exponent)
     ndf = fit_freundlichs(df)
-    gr = ndf.groupby(['doi', 'adsorbent', 'adsorbate'])['n'].agg(['mean', 'std'])
-    print(gr.dropna().sort_values(by=('std')))
+    Kdf = fit_langmuirs(df)
 
-    ndf = fit_langmuirs(df)
-    gr = ndf.groupby(['doi', 'adsorbent', 'adsorbate'])['K'].agg(['mean', 'std'])
-    print(gr.dropna().sort_values(by=('std')))
+    print(ndf.dropna().sort_values(by='n'))
+    print(Kdf.dropna().sort_values(by='K'))
+
+    ngr = ndf.groupby(['doi', 'adsorbent', 'adsorbate'])['n'].agg(['mean', 'std'])
+    Kgr = Kdf.groupby(['doi', 'adsorbent', 'adsorbate'])['K'].agg(['mean', 'std'])
+
+    #print(ngr.dropna().sort_values(by=('std')))
+    #print(Kgr.dropna().sort_values(by=('std')))

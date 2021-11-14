@@ -66,6 +66,20 @@ def plot_K_T(df, ndf = None):
             continue
         slope, inter, *_ = linregress(np.log(gr['temperature']), np.log(gr['K']))
         plt.loglog(gr['temperature'], gr['K'], 'o-', label=f'delH/kB={inter:.3f}, delS/kB={-slope:.3f}')
+    plt.xlabel('Log Temperature in K')
+    plt.ylabel('Log Langmuir Constant in 1/bar')
+    plt.legend()
+
+def plot_n_T(df, ndf=None):
+    if ndf is None:
+        ndf = fit_freundlichs(df)
+    for n, gr in ndf.groupby(['adsorbent', 'adsorbate']):
+        if len(gr) <= 3:
+            continue
+        slope, inter, *_ = linregress(np.log(gr['temperature']), np.log(gr['n']))
+        plt.loglog(gr['temperature'], gr['n'], 'o-', label=f'slope={slope:.3f}')
+    plt.xlabel('Log Temperature in K')
+    plt.ylabel('Log Freundlich Isotherm Exponent')
     plt.legend()
 
 def plot_all_isotherms(df):
@@ -82,4 +96,5 @@ if __name__ == '__main__':
 
     #plot_K_T(df)
     #plot_a_p(df)
-    #plt.show()
+    plot_n_T(df)
+    plt.show()
