@@ -1,36 +1,53 @@
-from urllib.request import urlopen
 import json
-import numpy as np
+from urllib.request import urlopen
 from time import time
 
-parent_url = 'https://adsorbents.nist.gov/isodb/api/'
+API_URL = 'https://adsorbents.nist.gov/isodb/api'
+OUT_DIR = 'out/'
 
 # initial isotherms (abbreviated) information query
-# isos=urlopen(parent_url+'isotherms.json')
-# isos=json.loads(isos.read())
-# with open('out/all_isos_abbreviated.json','w') as write_file:
-#    write_file.write(json.dumps(isos))
+def get_isotherms_abbreviated():
+    isos = urlopen(f'{API_URL}/isotherms.json')
+    isos = json.loads(isos.read())
+    with open(f'{OUT_DIR}/all_isos_abbreviated.json','w') as write_file:
+        write_file.write(json.dumps(isos))
 
 
-with open('out/all_isos_abbreviated.json', 'r') as read_file:
-    isos = json.loads(read_file.read())
+def get_isotherms(start=0, overwrite=False):
+    with open(f'{OUT_DIR}/all_isos_abbreviated.json', 'r') as read_file:
+        isos = json.loads(read_file.read())
+    except FileNotFoundError:
+        raise FileNotFoundError("Run get_isotherms_abbreviated before get_isotherms")
 
-ci = 500  # update to prevent overwriting
-for d, iso in enumerate(isos[ci:]):
-    c = ci + d
-    t0 = time()
-    hkey = iso['adsorbent']['hashkey']
-    fname = iso['filename']
+    for d, iso in enumerate(isos[start:]):
+        try:
+            with open(f'{OUT_DIR}/{c:04d}-data', 'r') as _:
+                print(f'already have data for {c:04d}')
+                if not overwrite:
+                    print('skipping this query')
+                    continue
+                else:
+                    print('overwriting this data')
+        except FileNotFoundError:
+            pass
+        c = start + d
+        t0 = time()
+        hkey = iso['adsorbent']['hashkey']
+        fname = iso['filename']
 
-    name = urlopen(parent_url + 'material/' + hkey + '.json')
-    name = json.loads(name.read())
-    with open('out/{0:04d}-name-query'.format(c), 'w') as write_file:
-        write_file.write(json.dumps(name))
+        name = urlopen(f'{API_URL}/material/{hkey}.json')
+        name = json.loads(name.read())
+        with open('{OUT_DIR}/{0:04d}-name-query'.format(c), 'w') as write_file:
+            write_file.write(json.dumps(name))
 
-    data = urlopen(parent_url + 'isotherm/' + fname + '.json')
-    data = json.loads(data.read())
+        data = urlopen(f'{API_URL}/isotherm/{fname}.json')
+        data = json.loads(data.read())
 
-    with open('out/{0:04d}-data'.format(c), 'w') as write_file:
-        write_file.write(json.dumps(data))
+        with open(f'{OUT_DIR}/{c:04d}-data', 'w') as write_file:
+            write_file.write(json.dumps(data))
 
-    print('{0:04d} {1:.1f}'.format(c, time() - t0))
+        print(f'collected data for {c:04d} in {time()-t0:.1f}s')
+
+if __name__ == '__main__':
+    get_isotherms_abbreviated()
+    get_isotherms(start=500)
