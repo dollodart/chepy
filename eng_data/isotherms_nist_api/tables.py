@@ -10,6 +10,10 @@ def p95(x):
     return np.quantile(x, 0.95)
 def std_over_mean(x):
     return x.std() / x.mean()
+def maxminmin(x):
+    return p95(x) - p05(x)
+def maxminminnorm(x):
+    return maxminmin(x) / p50(x)
 
 def table_ind_means(df):
     g = df.groupby('adsorbate')['temperature', 'pressure']
@@ -18,11 +22,6 @@ def table_ind_means(df):
     return res
 
 def table_ind_ranges(df):
-    def maxminmin(x):
-        return p95(x) - p05(x)
-
-    def maxminminnorm(x):
-        return maxminmin(x) / p50(x)
 
     for func, st in (maxminmin, 'max-min'), (maxminminnorm, '(max-min)/med'):
         g = df.groupby(['doi', 'adsorbate', 'adsorbent'])
