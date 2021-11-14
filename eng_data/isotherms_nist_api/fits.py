@@ -38,9 +38,9 @@ def fit_langmuir_explicit(p, Sigma):
     return Kmean # K[~np.isnan(K)].mean()
 
 def fit_freundlich(p, Sigma):
-    bl = p > 0
-    n, inter, r2, sigma, pval = linregress(np.log(p[bl]), np.log(Sigma[bl]))
-    if pval < 0.02:
+    bl = p > 1e-6 # microbar
+    n, A, r2, sigma, pval = linregress(np.log(p[bl]), np.log(Sigma[bl]))
+    if pval < 0.02 and abs(r2) > .5:
         return n
     return np.nan
 
@@ -48,7 +48,7 @@ def _fit(df, func, colname = 'K'):
     xy = []
     for n, gr in df.groupby(['doi', 'adsorbent', 'adsorbate', 'temperature']):
         try:
-            K = fit_langmuir_explicit(gr['pressure'].values, gr['adsorption'].values)
+            K = func(gr['pressure'].values, gr['adsorption'].values)
             xy.append((n[0], n[1], n[2], n[3], K))
         except RunTimeWarning:
             pass
