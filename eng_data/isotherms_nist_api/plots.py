@@ -32,9 +32,16 @@ def plot_a_p(df):
     # plot isotherms (in comparable y-units), contrasting different
     for n, gr in df.groupby('adsUnit'):
         plt.figure()
-        plt.title(n)
-        for nn, ggr in gr.groupby(['adsorbent', 'temperature']):
-            plt.loglog(ggr['pressure'], ggr['adsorption'], 'o', label='-'.join(nn))
+        plt.xlabel('pressure in bar')
+        plt.ylabel(f'adsorption in {n}')
+        for nn, ggr in gr.groupby('adsorbent'):
+            plot = None
+            for nnn, gggr in ggr.groupby('temperature'):
+                if plot is None:
+                    plot, = plt.loglog(gggr['pressure'], gggr['adsorption'], 'o', label=nn)
+                else:
+                    plt.loglog(gggr['pressure'], gggr['adsorption'], 'x', color=plot.get_color())
+        plt.legend()
 
 def plot_K_bent(df, ndf = None):
     # langmuir constants split by adsorbent (not adsorbate/temperature). gives
