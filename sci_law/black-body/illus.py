@@ -30,6 +30,11 @@ y2 = 0.25*np.exp(-(l - 550)**2/20**2)
 o = y2 > 0.1
 bls = (np.ones(n) - o) / 20
 plt.plot(l, y2 + bls, 'k--')
+# this is qualitatively showing a conservation of area, but note that the net
+# intensity is not the brightness/lightness because only the convolution with
+# the cones determines the brightness/lightness.  given the data, this can be
+# quantitatively modeled, that is, one can determine spectral changes which
+# would correspond to constant brightness and lightness.
 
 plt.figure()
 plt.title('y-scale (physical, uniform intensity change)')
