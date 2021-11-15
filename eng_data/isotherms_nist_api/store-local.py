@@ -1,5 +1,5 @@
 import json
-from urllib.request import urlopen
+import requests
 from time import time
 
 API_URL = 'https://adsorbents.nist.gov/isodb/api'
@@ -7,15 +7,17 @@ OUT_DIR = 'out/'
 
 # initial isotherms (abbreviated) information query
 def get_isotherms_abbreviated():
-    isos = urlopen(f'{API_URL}/isotherms.json')
-    isos = json.loads(isos.read())
+    url = f'{API_URL}/isotherms.json'
+    print(f'getting abbreviated isotherms from {url}')
+    isos = requests.get(url).json()
     with open(f'{OUT_DIR}/all_isos_abbreviated.json','w') as write_file:
         write_file.write(json.dumps(isos))
 
 
 def get_isotherms(start=0, overwrite=False):
-    with open(f'{OUT_DIR}/all_isos_abbreviated.json', 'r') as read_file:
-        isos = json.loads(read_file.read())
+    try:
+        with open(f'{OUT_DIR}/all_isos_abbreviated.json', 'r') as read_file:
+            isos = json.loads(read_file.read())
     except FileNotFoundError:
         raise FileNotFoundError("Run get_isotherms_abbreviated before get_isotherms")
 
@@ -35,13 +37,11 @@ def get_isotherms(start=0, overwrite=False):
         hkey = iso['adsorbent']['hashkey']
         fname = iso['filename']
 
-        name = urlopen(f'{API_URL}/material/{hkey}.json')
-        name = json.loads(name.read())
+        name = requests.get(f'{API_URL}/material/{hkey}.json').json()
         with open('{OUT_DIR}/{0:04d}-name-query'.format(c), 'w') as write_file:
             write_file.write(json.dumps(name))
 
-        data = urlopen(f'{API_URL}/isotherm/{fname}.json')
-        data = json.loads(data.read())
+        data = requests.get(f'{API_URL}/isotherm/{fname}.json').json()
 
         with open(f'{OUT_DIR}/{c:04d}-data', 'w') as write_file:
             write_file.write(json.dumps(data))
@@ -50,4 +50,4 @@ def get_isotherms(start=0, overwrite=False):
 
 if __name__ == '__main__':
     get_isotherms_abbreviated()
-    get_isotherms(start=500)
+    get_isotherms(overwrite=False)
