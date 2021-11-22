@@ -62,11 +62,18 @@ def plot_K_T(df, ndf = None):
     if ndf is None:
         ndf = fit_langmuirs(df)
     for n, gr in ndf.groupby(['adsorbent', 'adsorbate']):
-        if len(gr) <= 3:
+        gr = gr.dropna()
+        if len(gr) <= 3 or (gr['K'] < 0).any() or (gr['temperature'] < 0).any():
             continue
-        slope, inter, *_ = linregress(np.log(gr['temperature']), np.log(gr['K']))
-        plt.loglog(gr['temperature'], gr['K'], 'o-', label=f'delH/kB={inter:.3f}, delS/kB={-slope:.3f}')
-    plt.xlabel('Log Temperature in K')
+        x = 1/gr['temperature']
+        y = np.log(gr['K'])
+        slope, inter, *_ = linregress(x, y)
+        print(x, y, slope, inter, sep='\n')
+        plt.plot(x, y, 'o', label=f'$-\Delta H/kB$={-slope:.3f}, $\Delta S/kB$={-inter:.3f}')
+        plt.plot((x.min(), x.max()),
+                 (y.min(), y.max()),
+                 '-')
+    plt.xlabel('$1/T$ in 1/K')
     plt.ylabel('Log Langmuir Constant in 1/bar')
     plt.legend()
 
@@ -94,7 +101,7 @@ if __name__ == '__main__':
     from read_data import read_isotherm_data
     df = read_isotherm_data()
 
-    #plot_K_T(df)
+    plot_K_T(df)
     #plot_a_p(df)
-    plot_n_T(df)
+    #plot_n_T(df)
     plt.show()
