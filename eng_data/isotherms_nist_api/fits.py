@@ -3,8 +3,31 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
+from scipy.optimize import minimize
 
 def fit_langmuir_explicit(p, Sigma):
+    bl = p > 0
+    Sigma = Sigma[bl]
+    p = p[bl]
+
+    def residual(Ka, p, Sigma):
+        K, a = Ka
+        Kp = K*p
+        r = (np.log(Sigma) + np.log(a) - np.log(Kp) + np.log(1 + Kp))**2
+        r = sum(r)
+        return r
+
+    K0 = 1
+    a0 = 1
+    x0 = np.array([K0, a0])
+
+    res = minimize(residual, x0, args=(p, Sigma), bounds=((1e-6, None), (1e-6, None)))
+    # parameters must be positive
+    if res.success:
+        return res.x[0]
+
+
+def fit_langmuir_explicit_pairwise(p, Sigma):
     """
     Simply invert the analytical form to get an explicit equation for the
     parameter. Then take the mean value. Because it has to be in pairwise
@@ -33,7 +56,9 @@ def fit_langmuir_explicit(p, Sigma):
 
     # may want to impose some maximum residual on the data to only return results which have meaningful fits
 
-    Kmean = np.array(Klst).mean() 
+    Kmean = np.array(Klst)
+    Kmean = Kmean[Kmean < np.inf] # equivalent to isna
+    Kmean = Kmean.mean()
 
     return Kmean # K[~np.isnan(K)].mean()
 
@@ -50,7 +75,9 @@ def _fit(df, func, colname = 'K'):
         try:
             K = func(gr['pressure'].values, gr['adsorption'].values)
             xy.append((n[0], n[1], n[2], n[3], K))
-        except RunTimeWarning:
+        except Exception as e:#RunTimeWarning:
+            print(e, type(e))
+            import sys; sys.exit()
             pass
     return pd.DataFrame(xy, columns = ['doi', 'adsorbent', 'adsorbate', 'temperature', colname])
 
