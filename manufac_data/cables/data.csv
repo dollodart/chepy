@@ -1,0 +1,7 @@
+type,voltage_max(V),current_max(mA),length(m)
+USB-C/PD,5.0,3000,1
+USB3.1,5.0,900,1
+USB3,5.0,900,2
+USB2,5.0,500,5
+Cat6,125,577,100
+VGA,5.0,1000,30
