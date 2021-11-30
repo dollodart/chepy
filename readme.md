@@ -22,7 +22,12 @@ calculations on. Some scripts merely visualize a geometric sequence as a plot.
 Others calculate statistics, evaluate integrals, or do some other computations
 on the input data.
 
+For the most part, these scripts demonstrate the application of basic
+statistical reasoning in either purely empirical or mixed theoretical and
+empirical models for the purpose of prediction or design.
+
 ## License
+
 I have tried to cite all data sources but in some cases have lost the original
 reference materials (such cases tend to be small amounts of data readily
 available on the internet by search). There is no license and it cannot be
@@ -118,7 +123,10 @@ the logarithmic scale on the axis imply that the logarithm is taken. Of course,
 what is plotted is the logarithm of the quantity, so the label is more
 correctly 'log(x)' .
 
-# Further Updates
+# Further Development
 
-There are several 'modules' which are erroneous, or sufficiently incomplete as
-to not be included in here. They may at some time be added.
+There are several modules which are erroneous, or sufficiently incomplete as
+to not be included in here. They may at some time be added. There is no
+guarantee of correctness for what is at this time published. Please report
+errors in the issues. Note some errors are already known and stated in the
+readmes or commit log.
