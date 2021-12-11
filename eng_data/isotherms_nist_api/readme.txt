@@ -1,4 +1,8 @@
-Analyzes the data for adsorption isotherms from the NIST API.
+Analyzes the data for adsorption isotherms from the NIST API. Note that NIST
+offers tutorial IPython notebooks, making use of specialized python packages
+(pyIAST) for solution adsorption theory to model multicomponent adsorption. The
+analysis here is a systematic review of the data rather than making use of the
+data for some application such as designing a separations column.
 
 # About Data Normalization to Fit Langmuir Parameters
 
@@ -197,11 +201,13 @@ most often not sampled.
 # Data Source
 
 NIST API for the isotherm database at https://adsorbents.nist.gov/isodb/api/.
-The below i the version JSON for the API.
+The below is the version JSON for the API.
 
 Version JSON:
-{   "version": "3.4598",
+{
+    "version": "3.14223",
     "major": "3",
-    "minor": "4598",
-    "date": "2019-02-06 10:39:57",
-    "comment": "Isotherm Added"    }
+    "minor": "14223",
+    "date": "2021-09-10 16:33:47",
+    "comment": "Material Updated"
+}
