@@ -1,32 +1,31 @@
 import pathlib
+import urlpath
 import json
 import requests
 from time import time
 
-API_URL = 'https://adsorbents.nist.gov/isodb/api'
-OUT_DIR = 'out/'
+API_URL = urlpath.URL('https://adsorbents.nist.gov/isodb/api')
+OUT_DIR = pathlib.Path('out')
 
 # initial isotherms (abbreviated) information query
 def get_isotherms_abbreviated():
-    url = f'{API_URL}/isotherms.json'
+    url = API_URL.joinpath('isotherms.json')
     print(f'getting abbreviated isotherms from {url}')
-    isos = requests.get(url).json()
-    with open(f'{OUT_DIR}/all_isos_abbreviated.json','w') as write_file:
+    isos = url.get().json()
+    with open(OUT_DIR.joinpath('all_isos_abbreviated.json'), 'w') as write_file:
         write_file.write(json.dumps(isos))
-
 
 
 def get_isotherms(max_queries=1e100, overwrite=False):
 
     try:
-        with open(f'{OUT_DIR}/all_isos_abbreviated.json', 'r') as read_file:
+        with open(OUT_DIR.joinpath('all_isos_abbreviated.json'), 'r') as read_file:
             isos = json.loads(read_file.read())
     except FileNotFoundError:
         raise FileNotFoundError("Run get_isotherms_abbreviated before get_isotherms")
     
-    out_dir = pathlib.Path(f'{OUT_DIR}')
     cache = []
-    for f in out_dir.iterdir():
+    for f in OUT_DIR.iterdir():
         if f.name.startswith('isotherm-'):
             cache.append(f.name.lstrip('isotherm-').rstrip('.json'))
 
@@ -47,14 +46,15 @@ def get_isotherms(max_queries=1e100, overwrite=False):
         t0 = time()
         hkey = iso['adsorbent']['hashkey']
 
-        name = requests.get(f'{API_URL}/material/{hkey}.json').json()
-        with open(f'{OUT_DIR}/material-{hkey}.json', 'w') as write_file:
-            write_file.write(json.dumps(name))
+        name = API_URL.joinpath('material').joinpath(f'{hkey}.json').get().json()
 
-        data = requests.get(f'{API_URL}/isotherm/{fname}.json').json()
+        with open(OUT_DIR.joinpath(f'material-{hkey}.json'.lower()), 'w') as wf:
+            wf.write(json.dumps(name))
 
-        with open(f'{OUT_DIR}/isotherm-{fname}.json', 'w') as write_file:
-            write_file.write(json.dumps(data))
+        data = API_URL.joinpath('isotherm').joinpath(f'{fname}.json').get().json()
+
+        with open(OUT_DIR.joinpath('isotherm-{fname}.json'.lower()), 'w') as wf:
+            wf.write(json.dumps(data))
 
         print(f'collected data for {fname} at position {c:04d} in {time()-t0:.1f}s')
 

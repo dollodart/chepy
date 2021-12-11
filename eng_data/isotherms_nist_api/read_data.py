@@ -3,11 +3,16 @@ import numpy as np
 import pandas as pd
 from pubchem_api import mw_req
 from chepy.utils.mol_mass import formula2molmass
+import pathlib
+
+OUT_DIR = pathlib.Path('out')
 
 def read_isotherm_data():
     tdata = []
-    for c in range(300):
-        with open(f'out/{c:04d}-data', 'r') as read_file:
+    for f in OUT_DIR.iterdir():
+        if not f.name.startswith('isotherm'):
+            continue
+        with open(f, 'r') as read_file:
             data = json.loads(read_file.read())
             # print(data['adsorptionUnits'], data['pressureUnits']) # all temperatures in K
             # one must know the material properties (can be looked up by InChi Key) to convert adsorptionUnits
@@ -48,11 +53,9 @@ def read_isotherm_data():
                     d['total_adsorption']])
 
         except KeyboardInterrupt:
-            raise
+            import sys; sys.exit()
         except Exception as e:
-            #print('exception b4')
-            #print(c, e)
-            raise e
+            print(e)
     #
     cols = ['doi',
             'adsUnit', 'pressUnit',
