@@ -1,10 +1,146 @@
-Analyzes the data for adsorption isotherms from the NIST API. Note that NIST
+# Summary
+
+These scripts analyze the data for adsorption isotherms from the NIST API. Note that NIST
 offers tutorial IPython notebooks, making use of specialized python packages
 (pyIAST) for solution adsorption theory to model multicomponent adsorption. The
 analysis here is a systematic review of the data rather than making use of the
 data for some application such as designing a separations column.
 
-# About Data Normalization to Fit Langmuir Parameters
+# Physical Reasoning As Applied to Experimental Conditions
+
+Though there is a great diversity in the adsorbent, the gas phase
+adsorbates tend to be simple molecules, especially for testing purposes. The
+question is then whether there are systematic trends. One certainly expects
+that, e.g., the adsorption of hydrogen requires lower temperatures
+(and higher pressures) than that of a cyclic organic compound. And that is
+demonstrated in the table, which shows hydrogen adsorption is measured on average at 125 K
+and 13.3 bar, while cyclohexane adsorption is measured on average at 365 K and 37 mbar.
+
+One sees that low pressures are most often sampled. Low pressures, defined for
+a given isotherm as low surface coverage fractions, make a kind of ideal limit
+where there is only adsorbent-adsorbate interactions, and quantify the true
+'heat of adsorption' (which is assumed constant in Langmuir isotherms, but
+which can be made more negative by adsorbate-adsorbate interactions).
+
+On average, pressure is varied in an isotherm over a factor of 2.4 times the
+median value (this may not be symmetric, such that the maximum could be more
+than 6/5 times the median value and the minimum less than 5/6 times the median
+value). The mean value of pressure range is 5.3 bar. On average, and excluding
+nonvarying cases, the temperature is varied over isotherms by a factor of
+0.74, and the mean value of the temperature range is 95.75 Kelvin.
+
+One sees that in the pressure-temperature space, there is a bivariate
+distribution in which they are correlated (there is a diagonal): as one
+increases temperature one generally increases pressure, too. This as one
+expects (see theory section).
+
+If one fits parameters, one has effectively a 'physical statistic': in fact,
+the parameter in the langmuir adsorption isotherm is the inverse of the
+pressure at which the surface coverage fraction is 1/2, a kind of 'physical
+median'. This reduces the amount of general statistical calculation that has
+to be done. However, this only works to the extent the function being fit can
+be well-fit. Which isn't always the case. There is the advantage, though, that
+determining these parameters allows data sets with differing y-variables to be
+compared without making explicit conversions using material property data of
+the adsorbent, especially ones that are hard to come by such as active surface
+(which has to be measured, anyway, by adsorption techniques).
+
+# Theory and Invariants
+
+The chemical potential of a gas, which determines the equilibrium state,
+increases logarithmically with pressure but, if other parameters are constant,
+linearly or nearly linearly with temperature (𝜇 = 𝜇0(T) + R.T.ln(P) where
+𝜇0(T) has for an ideal gas a T.ln(T) dependence).  Assuming the adsorbate
+phase, which is a condensed phase, has a much weaker temperature dependence
+(it certainly has a much weaker pressure dependence), one sees the equilibrium
+condition requires pressure and temperature to covary as ln(P).T = const..
+Though, adsorption is not an equilibrium state, a given surface coverage
+fraction, say of 0.5, is.
+
+One can test to see whether the quantity ln(P).T (or ln(P).T.ln(T)) is
+invariant for a given surface coverage fraction for a given adsorbate-adsorbent
+pair in this data (temperature, pressure, and experiment may vary). It is
+difficult to do this for a specified surface coverage fraction, because one
+isn't guaranteed that the median (or mean) value of the sampled adsorption is a
+surface fraction of 0.5 (that's to say, 𝛴_mean != c/2 where 𝛴 = cy). But one
+can do it for some surface fraction, or rather, some band of surface fractions
+(say 10% of the total range) at different quantiles.  Doing so shows this
+nominal invariant varies only slightly less than the logarithmic pressure,
+which is the independent variable with greatest variance.
+
+In fact, in adsorption the entropy may be a significant contribution to the
+free energy at the equilibrium conditions of interest (I have heard it said in
+lectures to be the object of stimulations to accurately calculate the
+adsorption entropy). Then the adsorption free energy varies linearly with
+temperature with a slope equal to the entropy of adsorption which is a
+significant slope relative to the intercept for the temperature ranges of
+interest. Thus even if constant with respect to temperature, there would be no
+invariant across several materials for which the entropy of adsorption differ
+significantly, and there is no *a priori* way to obtain the invariant when it
+depends on a parameter even for a single material.
+
+When fitting to a temperature range of Langmuir adsorption isotherms, or some
+other model of isotherm, this invariant is not tested because it is assumed
+over the conditions of interest that the enthalpy of adsorption and entropy of
+adsorption dominate the change in free energy of the gas phase, and so are
+effectively constant. This assumption is often valid and linear plots under the
+correct coordinates are observed for the data here (logarithm of Langmuir
+constant and inverse temperature).
+
+## Desorption Temperature
+
+Desorption, as a thermodynamic property of a perfect and single-type surface,
+might like boiling occur at a given temperature.  But even the simplest model
+of a surface, the Langmuir adsorption isotherm, do not have a boiling point.
+Assuming, and this is valid under the case that the various thermodynamic
+parameters are constant w.r.t. temperature, that the constant K varies as A0
+e^{-E0/kT}, then where
+
+y2/y1 = A0.e^{-E0/kT2}.p.(1 + A0.e^{-E0/kT1}.p) /
+        [A0.e^{-E0/kT1}.p.(1 + A0.e^{-E0/kT2}.p)]
+
+and
+
+y2/y1 = K.p1.(1+K.p2)/[K.p2.(1+K.p1)]
+
+it is shown the surface coverage is variable with the temperature and pressure.
+In effect, the surface coverage is a composition variable, like that in a
+binary liquid mixture such as ethanol and water.
+
+In practice, there may be kinetic limitations such that the desorption
+temperature occurs at much higher ones than any thermodynamic ones. Even in the
+absence of kinetic limitations, one would generally not see boiling point
+transitions. Even single crystalline surfaces which have surface phases will
+often be observed in experiment to have continuous surface coverage, because
+there exist so many different crystalline surface phases. In the literature,
+these are called surface reconstructions, and it is common to find phase
+diagrams in which there are 10 or more surface crystal phases, all of stepwise
+varying composition, as the chemical potential of the gas phase is varied.
+Given the highly heterogenous nature of real surfaces and limits of
+experimental resolution, such stepwise transitions might not be observed even
+if they exist (and they might not exist for the reason of there being so many
+other possible surface phases).
+
+From this data it is impossible to calculate some kinetically limited
+desorption temperature, and even if one were to define a thermodynamic
+desorption temperature (say when the surface coverage becomes less than some
+fraction at some given pressure), that wouldn't necessarily be meaningful and
+it may require extrapolation. Because of these limitations no attempt is made
+to derive the desorption temperature, though the temperature ranges for
+adsorbate-adsorbent pairs is done. This is done for adsorbates only in Physical
+Reasoning As Applied to Experimental Conditions and is more succint and
+informative, since new adsorbents generally similar adsorption at the same
+temperature, it being a design goal to have high adsorption at high
+temperatures. Where they don't, they might have selectivity differences, but
+this multicomponent adsorption isn't investigated.
+
+# Functional Isotherm Fits
+
+## Data Normalization to Fit Langmuir Parameters
+
+Langmuir parameters can be derived using a two parameter model, which is done
+here. But alternatively one can formulate a ratio form which is explicit in the
+one unknown of the Langmuir constant.
 
 For a given isotherm, one can normalize pressure by the saturation pressure of
 the gas, provided the temperature is below the boiling point of the liquid for
@@ -76,114 +212,7 @@ e.g., different site types, there is not in abundant use other models (some
 more advanced models are sometimes used, such as the BET isotherm for modeling
 multi-layer adsorption).
 
-# Theory and Invariants
-
-The chemical potential of a gas, which determines the equilibrium state,
-increases logarithmically with pressure but, if other parameters are constant,
-linearly or nearly linearly with temperature (𝜇 = 𝜇0(T) + R.T.ln(P) where
-𝜇0(T) has for an ideal gas a T.ln(T) dependence).  Assuming the adsorbate
-phase, which is a condensed phase, has a much weaker temperature dependence
-(it certainly has a much weaker pressure dependence), one sees the equilibrium
-condition requires pressure and temperature to covary as ln(P).T = const..
-Though, adsorption is not an equilibrium state, a given surface coverage
-fraction, say of 0.5, is.
-
-One can test to see whether the quantity ln(P).T (or ln(P).T.ln(T)) is
-invariant for a given surface coverage fraction for a given adsorbate-adsorbent
-pair in this data (temperature, pressure, and experiment may vary). It is
-difficult to do this for a specified surface coverage fraction, because one
-isn't guaranteed that the median (or mean) value of the sampled adsorption is a
-surface fraction of 0.5 (that's to say, 𝛴_mean != c/2 where 𝛴 = cy). But one
-can do it for some surface fraction, or rather, some band of surface fractions
-(say 10% of the total range) at different quantiles.  Doing so shows this
-nominal invariant varies only slightly less than the logarithmic pressure,
-which is the independent variable with greatest variance.
-
-In fact, in adsorption the entropy may be a significant contribution to the
-free energy at the equilibrium conditions of interest (I have heard it said in
-lectures to be the object of stimulations to accurately calculate the
-adsorption entropy). Then the adsorption free energy varies linearly with
-temperature with a slope equal to the entropy of adsorption which is a
-significant slope relative to the intercept for the temperature ranges of
-interest. Thus even if constant with respect to temperature, there would be no
-invariant across several materials for which the entropy of adsorption differ
-significantly, and there is no *a priori* way to obtain the invariant when it
-depends on a parameter even for a single material.
-
-When fitting to a temperature range of Langmuir adsorption isotherms, or some
-other model of isotherm, this invariant is not tested because it is assumed
-over the conditions of interest that the enthalpy of adsorption and entropy of
-adsorption dominate the change in free energy of the gas phase, and so are
-effectively constant. This assumption is often valid and linear plots under the
-correct coordinates are observed for the data here (logarithm of Langmuir
-constant and inverse temperature).
-
-## Desorption Temperature
-
-Desorption, as a thermodynamic property of a perfect and single-type surface,
-might like boiling occur at a given temperature. In practice, there may be
-kinetic limitations such that the desorption temperature occurs at much higher
-ones, and even if thermodynamic the surface is not heterogeneous and so
-different surface sites give up their atoms at different temperatures.
-However, even the most elementary of models of surfaces, the Langmuir
-adsorption isotherm, do not have a single boiling point. Assuming, and this is
-valid under the case that the various thermodynamic parameters are constant
-w.r.t. temperature, that the constant K varies as A0 e^{-E0/kT}, then clearly
-where
-
-y2/y1 = A0.e^{-E0/kT2}.p.(1 + A0.e^{-E0/kT1}.p) /
-        [A0.e^{-E0/kT1}.p.(1 + A0.e^{-E0/kT2}.p)]
-
-and
-
-y2/y1 = K.p1.(1+K.p2)/[K.p2.(1+K.p1)]
-
-show that the surface coverage is variable with the parameters. In effect, the
-surface coverage is a composition variable, like that in a binary liquid
-mixture such as ethanol and water.
-
-# Physical Reasoning As Applied to Experimental Conditions
-
-Though there is a great diversity in the adsorbent, the gas phase
-adsorbates tend to be simple molecules, especially for testing purposes. The
-question is then whether there are systematic trends. One certainly expects
-that, e.g., the adsorption of hydrogen requires lower temperatures
-(and higher pressures) than that of a cyclic organic compound. And that is
-demonstrated in the table, which shows hydrogen adsorption is measured on average at 125 K
-and 13.3 bar, while cyclohexane adsorption is measured on average at 365 K and 37 mbar.
-
-One sees that low pressures are most often sampled. Low pressures, defined for
-a given isotherm as low surface coverage fractions, make a kind of ideal limit
-where there is only adsorbent-adsorbate interactions, and quantify the true
-'heat of adsorption' (which is assumed constant in Langmuir isotherms, but
-which can be made more negative by adsorbate-adsorbate interactions).
-
-On average, pressure is varied in an isotherm over a factor of 2.4 times the
-median value (this may not be symmetric, such that the maximum could be more
-than 6/5 times the median value and the minimum less than 5/6 times the median
-value). The mean value of pressure range is 5.3 bar. On average, and excluding
-nonvarying cases, the temperature is varied over isotherms by a factor of
-0.74, and the mean value of the temperature range is 95.75 Kelvin.
-
-One sees that in the pressure-temperature space, there is a bivariate
-distribution in which they are correlated (there is a diagonal): as one
-increases temperature one generally increases pressure, too. This as one
-expects (see theory section).
-
-If one fits parameters, one has effectively a 'physical statistic': in fact,
-the parameter in the langmuir adsorption isotherm is the inverse of the
-pressure at which the surface coverage fraction is 1/2, a kind of 'physical
-median'. This reduces the amount of general statistical calculation that has
-to be done. However, this only works to the extent the function being fit can
-be well-fit. Which isn't always the case. There is the advantage, though, that
-determining these parameters allows data sets with differing y-variables to be
-compared without making explicit conversions using material property data of
-the adsorbent, especially ones that are hard to come by such as active surface
-(which has to be measured, anyway, by adsorption techniques).
-
-## Results for Parameter Fits
-
-### Langmuir Isotherms
+## Langmuir Isotherms
 
 The Langmuir constant in found to vary between 3.6 mbar^-1 and thousands of
 bar^-1 for those isotherms with meaningful fits. This isn't unexpected given
@@ -192,7 +221,7 @@ there is 50% adsorption can vary over orders of magnitude (because the
 chemical potential in the gas phase is logarithmic with pressure and linear
 with temperature, see theory section).
 
-### Freundlich Isotherm
+## Freundlich Isotherm
 
 It is found that exponents, when fits are valid, tend to be less than 1, and
 they change significantly with temperature in the case of adsorbents and

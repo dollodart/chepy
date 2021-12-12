@@ -49,8 +49,16 @@ def test_invar(df):
     r = ndf.agg(['mean', 'std', std_over_mean])
     return r
 
+def test_temp_ranges(df):
+    gr = df.groupby(['adsorbate', 'adsorbent'])
+    r = gr['temperature'].agg([p05, p50, p95, std_over_mean])
+    return r.sort_values(by='p50')
+
 if __name__ == '__main__':
     from read_data import read_isotherm_data
     df = read_isotherm_data()
-    r = test_invar(df)
+    #r = test_invar(df)
+
+    df['temperature'] = df['temperature'].map(lambda x: x if x > 0 else x + 273.15)
+    r = test_temp_ranges(df)
     print(r)
