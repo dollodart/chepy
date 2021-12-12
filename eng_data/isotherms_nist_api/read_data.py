@@ -1,11 +1,41 @@
 import json
 import numpy as np
 import pandas as pd
-from pubchem_api import mw_req
+from pubchem_api import mw_req, global_dct
 from chepy.utils.mol_mass import formula2molmass
 import pathlib
 
 OUT_DIR = pathlib.Path('out')
+
+def tdata2df(tdata):
+    #
+    cols = ['doi',
+            'adsUnit', 'pressUnit',
+            'adsorbate', 'adsorbate mw',
+            'adsorbent', 'adsorbent mw',
+            'temperature', 'pressure',
+            'adsorption']
+    #
+    dtypes = {'temperature':'float64',
+              'pressure': 'float64',
+              'pressUnit': str,
+              'adsorption': 'float64',
+              'adsUnit': str,
+              'doi': str,
+              'adsorbate': str,
+              'adsorbate mw': 'float64',
+              'adsorbent': str,
+              'adsorbent mw': 'float64'}
+    #
+    df = pd.DataFrame(tdata, columns=cols)
+    for col in dtypes:
+        df[col] = df[col].astype(dtypes[col])
+    #
+    return df
+
+def global_dct_save():
+    with open('global_dct.json', 'w') as _:
+        json.dump(global_dct, _) #
 
 def read_isotherm_data():
     tdata = []
@@ -56,37 +86,22 @@ def read_isotherm_data():
             import sys; sys.exit()
         except Exception as e:
             print(e)
-    #
-    cols = ['doi',
-            'adsUnit', 'pressUnit',
-            'adsorbate', 'adsorbate mw',
-            'adsorbent', 'adsorbent mw',
-            'temperature', 'pressure',
-            'adsorption']
-    #
-    dtypes = {'temperature':'float64',
-              'pressure': 'float64',
-              'pressUnit': str,
-              'adsorption': 'float64',
-              'adsUnit': str,
-              'doi': str,
-              'adsorbate': str,
-              'adsorbate mw': 'float64',
-              'adsorbent': str,
-              'adsorbent mw': 'float64'}
-    #
-    df = pd.DataFrame(tdata, columns=cols)
-    for col in dtypes:
-        df[col] = df[col].astype(dtypes[col])
-    #
-    return df
+
+    global_dct_save()
+
+    return tdata2df(tdata)
 
 if __name__ == '__main__':
     df = read_isotherm_data()
     bl = df['adsUnit'] == 'wt%'
     sdf = df[bl]
     s = sdf['adsorption'] 
-    print(s.mean(), s.std(), s.quantile(0.95))
+    print('adsorption statistics on all data')
+    print(f'mean={s.mean():.2f}, std={s.std():.2f}, 95%={s.quantile(0.95):.2f}')
     bl = s > s.quantile(0.95)
+    print('high adsorption data frame')
     print(sdf[bl].drop_duplicates())
-    print(df[df['adsorbent mw'].isna()]['adsorbent'].drop_duplicates())
+    bl = df['adsorbent mw'].isna() 
+    print('number of entries for which adsorbent mw was found', len(bl) - bl.sum(), 'out of', len(bl))
+    print('adsorbents for which no adsorbent mw was found')
+    print(df[bl]['adsorbent'].drop_duplicates())

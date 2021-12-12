@@ -13,14 +13,15 @@ def mw_req(inchi):
     try:
         return global_dct[inchi]
     except KeyError:
+        c = tuple(len(x) for x in inchi.split('-')) == (14, 10, 1)
+        if not c:
+            raise KeyError
         url = API_URL / inchi / 'property' / 'MolecularWeight' / 'JSON'
-        print(f'running query on {inchi}')
-        record = url.get().json()
-        val = float(record['PropertyTable']['Properties'][0]['MolecularWeight']) 
-        global_dct[inchi] = val
-        with open('global_dct.json', 'w') as _:
-            json.dump(global_dct, _) #
 
+    print(f'running query on {inchi}')
+    record = url.get().json()
+    val = float(record['PropertyTable']['Properties'][0]['MolecularWeight']) 
+    global_dct[inchi] = val
     return global_dct[inchi]
 
 if __name__ == '__main__':
