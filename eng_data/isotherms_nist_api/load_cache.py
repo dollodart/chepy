@@ -1,11 +1,9 @@
+from chepy.utils.mol_mass import formula2molmass
+from .env import CACHE_DIR, GLOBAL_DCT_FILE
+from .pubchem_api import mw_req, global_dct
 import json
 import numpy as np
 import pandas as pd
-from pubchem_api import mw_req, global_dct
-from chepy.utils.mol_mass import formula2molmass
-import pathlib
-
-OUT_DIR = pathlib.Path('out')
 
 def tdata2df(tdata):
     #
@@ -17,8 +15,7 @@ def tdata2df(tdata):
             'adsorption']
     #
     dtypes = {'temperature':'float64',
-              'pressure': 'float64',
-              'pressUnit': str,
+              'pressure': 'float64', 'pressUnit': str,
               'adsorption': 'float64',
               'adsUnit': str,
               'doi': str,
@@ -34,12 +31,12 @@ def tdata2df(tdata):
     return df
 
 def global_dct_save():
-    with open('global_dct.json', 'w') as _:
+    with open(GLOBAL_DCT_FILE, 'w') as _:
         json.dump(global_dct, _) #
 
-def read_isotherm_data():
+def load_isotherm_data():
     tdata = []
-    for f in OUT_DIR.iterdir():
+    for f in CACHE_DIR.iterdir():
         if not f.name.startswith('isotherm'):
             continue
         with open(f, 'r') as read_file:
@@ -90,18 +87,3 @@ def read_isotherm_data():
     global_dct_save()
 
     return tdata2df(tdata)
-
-if __name__ == '__main__':
-    df = read_isotherm_data()
-    bl = df['adsUnit'] == 'wt%'
-    sdf = df[bl]
-    s = sdf['adsorption'] 
-    print('adsorption statistics on all data')
-    print(f'mean={s.mean():.2f}, std={s.std():.2f}, 95%={s.quantile(0.95):.2f}')
-    bl = s > s.quantile(0.95)
-    print('high adsorption data frame')
-    print(sdf[bl].drop_duplicates())
-    bl = df['adsorbent mw'].isna() 
-    print('number of entries for which adsorbent mw was found', len(bl) - bl.sum(), 'out of', len(bl))
-    print('adsorbents for which no adsorbent mw was found')
-    print(df[bl]['adsorbent'].drop_duplicates())

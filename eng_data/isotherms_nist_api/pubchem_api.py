@@ -1,12 +1,7 @@
-from urllib.request import urlopen
+from .env import PUBCHEM_URL, GLOBAL_DCT_FILE
 import json
-import pickle
-import urlpath
 
-API_URL = urlpath.URL('https://pubchem.ncbi.nlm.nih.gov')
-API_URL = API_URL / 'rest' / 'pug' / 'compound' / 'inchikey'
-
-with open('global_dct.json', 'r') as _:
+with open(GLOBAL_DCT_FILE, 'r') as _:
     global_dct = json.load(_)
     
 def mw_req(inchi):
@@ -16,7 +11,7 @@ def mw_req(inchi):
         c = tuple(len(x) for x in inchi.split('-')) == (14, 10, 1)
         if not c:
             raise KeyError
-        url = API_URL / inchi / 'property' / 'MolecularWeight' / 'JSON'
+        url = PUBCHEM_URL / inchi / 'property' / 'MolecularWeight' / 'JSON'
 
     print(f'running query on {inchi}')
     record = url.get().json()

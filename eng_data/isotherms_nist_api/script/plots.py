@@ -1,4 +1,6 @@
-from fits import fit_langmuir_explicit, fit_langmuirs, fit_freundlichs
+from chepy.eng_data.isotherms_nist_api import load_isotherm_data
+from chepy.eng_data.isotherms_nist_api import (fit_langmuir_explicit,
+        fit_langmuirs, fit_freundlichs)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -131,8 +133,7 @@ def plot_all_isotherms(df):
         plt.ylabel('adsorption in ' + gr['adsUnit'].iloc[0])
 
 if __name__ == '__main__':
-    from read_data import read_isotherm_data
-    df = read_isotherm_data()
+    df = load_isotherm_data()
     bl = (df['adsorption'] > 1e-14) & (df['pressure'] > 1e-14)
     df = df[bl]
 
