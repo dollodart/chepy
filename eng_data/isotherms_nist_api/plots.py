@@ -102,7 +102,7 @@ def plot_K_T(df, ndf = None):
         y = np.log(gr['K'])
         slope, inter, *_ = linregress(x, y)
         print(x, y, slope, inter, sep='\n')
-        plot, = plt.plot(x, y, 'o', label=f'$-\Delta H/kB$={-slope:.3f}, $\Delta S/kB$={-inter:.3f}')
+        plot, = plt.plot(x, y, 'o', label=f'$-\Delta H/kB$={slope:.3f}, $\Delta S/kB$={inter:.3f}')
         plt.plot((x.min(), x.max()),
                  (y.min(), y.max()),
                  '-', color = plot.get_color())
