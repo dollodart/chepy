@@ -89,16 +89,15 @@ Though, adsorption is not an equilibrium state, a given surface coverage
 fraction, say of 0.5, is.
 
 One can test to see whether the quantity ln(P).T (or ln(P).T.ln(T)) is
-invariant for a given surface coverage fraction for a given
-adsorbate-adsorbent pair in this data (temperature, pressure, and experiment
-may vary). It is difficult to do this for a specified surface coverage
-fraction, because one isn't guaranteed that the median (or mean) value of the
-sampled adsorption is a surface fraction of 0.5 (that's to say, 𝛴_mean != c/2
-where 𝛴 = cy). But one can do it for some surface fraction, or rather, some
-band of surface fractions (say 10% of the total range) at different quantiles.
-Doing show shows this so-called invariant actually varies more, fractionally,
-than do the independent variables of temperature and logarithmic pressure
-(which is yet to be explained).
+invariant for a given surface coverage fraction for a given adsorbate-adsorbent
+pair in this data (temperature, pressure, and experiment may vary). It is
+difficult to do this for a specified surface coverage fraction, because one
+isn't guaranteed that the median (or mean) value of the sampled adsorption is a
+surface fraction of 0.5 (that's to say, 𝛴_mean != c/2 where 𝛴 = cy). But one
+can do it for some surface fraction, or rather, some band of surface fractions
+(say 10% of the total range) at different quantiles.  Doing so shows this
+nominal invariant varies only slightly less than the logarithmic pressure,
+which is the independent variable with greatest variance.
 
 In fact, in adsorption the entropy may be a significant contribution to the
 free energy at the equilibrium conditions of interest (I have heard it said in
@@ -110,6 +109,14 @@ interest. Thus even if constant with respect to temperature, there would be no
 invariant across several materials for which the entropy of adsorption differ
 significantly, and there is no *a priori* way to obtain the invariant when it
 depends on a parameter even for a single material.
+
+When fitting to a temperature range of Langmuir adsorption isotherms, or some
+other model of isotherm, this invariant is not tested because it is assumed
+over the conditions of interest that the enthalpy of adsorption and entropy of
+adsorption dominate the change in free energy of the gas phase, and so are
+effectively constant. This assumption is often valid and linear plots under the
+correct coordinates are observed for the data here (logarithm of Langmuir
+constant and inverse temperature).
 
 ## Desorption Temperature
 

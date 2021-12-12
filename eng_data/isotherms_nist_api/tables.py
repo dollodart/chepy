@@ -34,7 +34,7 @@ def table_ind_ranges(df):
     return None
 
 def test_invar(df):
-    df['invar'] = np.log(df['pressure']) * df['temperature'] * np.log(df['temperature'])
+    df['invar'] = np.log(df['pressure']) / ( df['temperature'] * np.log(df['temperature']) )
     invars = []
     for n, gr in df.drop_duplicates(['pressure', 'temperature']).groupby(['adsorbate', 'adsorbent']):
         for q in np.linspace(0.15, 0.85, 15):
