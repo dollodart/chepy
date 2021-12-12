@@ -42,6 +42,39 @@ def plot_a_p(df):
                     plt.loglog(gggr['pressure'], gggr['adsorption'], 'x', color=plot.get_color())
         plt.legend()
 
+def plot_a_p_shape(df):
+    # scale all isotherms to vary in both x and y axes from 0 to 1
+    # label by adsorbates, which are much less numerous than adsorbents
+    plt.figure()
+    plt.xlabel('$p / p_{max}$')
+    plt.ylabel('$\Sigma / \Sigma_{max}$')
+    #
+    for n, gr in df.groupby(['doi', 'adsorbent', 'adsorbate']):
+        plot = None
+        for nn, ggr in gr.groupby('temperature'):
+            ggr = ggr.sort_values(by='pressure')
+            x = ggr['pressure'] / ggr['pressure'].max()
+            y = ggr['adsorption'] / ggr['adsorption'].max()
+            if plot is None:
+                plot, = plt.loglog(x, y, 'o-', label=n[-1])
+            else:
+                plt.loglog(x, y, 'x-', color=plot.get_color())
+
+    plt.legend()
+
+def plot_a_T_shape(df):
+    plt.figure()
+    plt.xlabel('$ (T - \langle T \\rangle) / (T_{max} - T_{min})$')
+    plt.ylabel('$\Sigma / \Sigma_{max}$, allowing $p/p_{max} \in [.45, .55]$')
+    #
+    for n, gr in df.groupby('adsorbate'):
+        x = (gr['temperature'] - gr['temperature'].mean()) / (gr['temperature'].max() - gr['temperature'].min())
+        y = gr['adsorption'] / gr['adsorption'].max()
+        blx = gr['pressure'] / gr['pressure'].max()
+        bl = (blx > .45) & (blx < .55)
+        plt.plot(x[bl], y[bl], 'o', label=n)
+    plt.legend()
+
 def plot_K_bent(df, ndf = None):
     # langmuir constants split by adsorbent (not adsorbate/temperature). gives
     # you a noisy quantification of its 'bondability' (electronegativity) 
@@ -69,10 +102,10 @@ def plot_K_T(df, ndf = None):
         y = np.log(gr['K'])
         slope, inter, *_ = linregress(x, y)
         print(x, y, slope, inter, sep='\n')
-        plt.plot(x, y, 'o', label=f'$-\Delta H/kB$={-slope:.3f}, $\Delta S/kB$={-inter:.3f}')
+        plot, = plt.plot(x, y, 'o', label=f'$-\Delta H/kB$={-slope:.3f}, $\Delta S/kB$={-inter:.3f}')
         plt.plot((x.min(), x.max()),
                  (y.min(), y.max()),
-                 '-')
+                 '-', color = plot.get_color())
     plt.xlabel('$1/T$ in 1/K')
     plt.ylabel('Log Langmuir Constant in 1/bar')
     plt.legend()
@@ -100,8 +133,12 @@ def plot_all_isotherms(df):
 if __name__ == '__main__':
     from read_data import read_isotherm_data
     df = read_isotherm_data()
+    bl = (df['adsorption'] > 1e-14) & (df['pressure'] > 1e-14)
+    df = df[bl]
 
     plot_K_T(df)
     #plot_a_p(df)
+    #plot_a_p_shape(df)
+    #plot_a_T_shape(df)
     #plot_n_T(df)
     plt.show()
