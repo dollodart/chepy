@@ -306,3 +306,13 @@ Version JSON:
     "date": "2021-09-10 16:33:47",
     "comment": "Material Updated"
 }
+
+# Further Analyses
+
+None of the molecular weight data is used to obtain an active surface coverage
+fraction, though that could be done, especially when using a better model fit
+for adsorption isotherms such as the BET isotherm. The best analysis, for the
+purpose of adsorbent design, would be to relate adsorbent properties to
+adsorption: but other than parsing the adsorbent names to classify them, one
+would have to look up the data, and that is currently limited to molecular
+weight.
