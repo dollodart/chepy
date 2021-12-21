@@ -84,3 +84,44 @@ def fit_langmuirs(df):
 
 def fit_freundlichs(df):
     return _fit(df, fit_freundlich, 'n')
+
+def scipy_form_arrhenius_ssr(x, K, T):
+    return arrhenius_sum_square_residual(x[0], x[1], K, T)
+
+def arrhenius_sum_square_residual(delH_kB, delS_kB, K, T):
+    # uses ratio form
+
+    K = K.sort_values()
+    T = T.sort_values()
+    med = len(T) // 2
+    K0 = K.iloc[med]
+    T0 = T.iloc[med]
+
+    y = np.log(K / K0)
+    yapprox = -delH_kB*(1/T-1/T0) + delS_kB*(1+T/T0)
+
+    r = y - yapprox
+    sr = r**2
+    ssr = sum(sr)
+    return ssr
+
+def fit_vanthoft(T, K, delH_kB0 = -1000, delS_kB0 = -25):
+    res = minimize(scipy_form_arrhenius_ssr,
+            x0=[delH_kB0, delS_kB0],
+            args=(K, T),
+            method='Powell',
+            bounds=[(None, 0), (None, 0)])
+    if res.success:
+        return res.x
+
+if __name__ == '__main__':
+    T = np.linspace(250, 350, 100)
+    delH_kB = -1100
+    delS_kB = -25
+    K = np.exp(-delH_kB*1/T + delS_kB)
+
+    T = pd.Series(T)
+    K = pd.Series(K)
+
+    params = fit_vanthoft(T, K)
+    print(params)

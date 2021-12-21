@@ -1,10 +1,11 @@
 # Summary
 
-These scripts analyze the data for adsorption isotherms from the NIST API. Note that NIST
-offers tutorial IPython notebooks, making use of specialized python packages
-(pyIAST) for solution adsorption theory to model multicomponent adsorption. The
-analysis here is a systematic review of the data rather than making use of the
-data for some application such as designing a separations column.
+These scripts analyze the data for adsorption isotherms from the NIST API. Note
+that NIST offers tutorial IPython notebooks, making use of specialized python
+packages (pyIAST) for solution adsorption theory to model multicomponent
+adsorption. The analysis here is a systematic review of the data rather than
+making use of the data for some application such as designing a separations
+column.
 
 # Physical Reasoning As Applied to Experimental Conditions
 
@@ -233,6 +234,64 @@ non-monotonic trend where it is zero on either side, either because saturation
 is independent of pressure at low temperatures or vacancy is independent of
 pressure at high temperatures. This behavior being of no interest, however, is
 most often not sampled.
+
+# Thermodynamic Parameters from Temperature Dependence
+
+Temperature dependence can also be modeled with empirical power laws. 
+
+Temperature dependence of parameters is often following Van't Hoff relationships as a matter
+of practice. Nothing is necessary by the equality of chemical potentials that
+should give a Van't Hoff relationship, because the chemical potentials of the
+two phases could be arbitrarily varying. However, condensed phases are often
+weakly temperature dependent (see Theory and Invariants section), and the
+change of enthalpy with adsorption, forming a bond, tends to dominate the
+temperature dependence of the gas phase chemical potential even when it is over
+a significant fractional range. The adsorbate is effectively a condensed phase,
+having bonding which can be described by orbital hybridization just like in a
+solid, and so the gas to condensed phase transition is like all gas to
+condensed phase transitions dominated by the bond energy. Because of this, a
+Van't Hoff relationship emerges, in which the free energy change attributable
+to the temperature dependence is linear because it is based on constant
+enthalpy and entropy of adsorption. Then a logarithmic plot versus inverse
+temperature is linear, by the division of Boltzmann factor from the entropy
+term for the pressure relationship in a gas, RT.ln(P). Over large temperature
+ranges and large chemical potentials, deviation from Van't Hoff relationships
+is generally expected, but such variation isn't usually observed in this data set. 
+
+Even when a Langmuir isotherm is an acceptable fit by some metrics to a series
+of isotherms, it doesn't mean the classically predicted temperature dependence
+of the Langmuire 'constant' (so called because it is constant in an isotherm)
+is correct. Said another way, an empirical set of isotherms which are
+adequatley approximated by some isothermal functional form need not have the
+corresponding theoretical temperature dependence.
+
+The enthalpy of adsorption has to be negative because the condensed phase has
+bonding. 
+
+The entropy of adsorption is a delta it doesn't depend on any reference state
+like the enthalpy of adsorption. However, it is a function of the thermodynamic
+variables, and unlike heat of reaction which is independent of temperature and
+pressure in many instances (for the reason of domination given above), in
+particular the entropy of adsorption it is a strong function of the (logarithm
+of) pressure. The loss of entropy in the gas phase depends on the pressure to a
+significant degree, given that the pressure can easily be varied over many
+orders of magnitude when temperature practically cannot. Since K is reported
+from the data units of 1/bar, it is convenient to choose the pressure at which
+to evaluate the entropy of adsorption to be 1 bar. This is equivalent to
+casting the equation in terms of Kp/p0/(1 + Kp/p0) which makes K dimensionless.
+The entropy of adsorption would, of course, be negative infinity in the limit
+of an infinitely dilute gas. The entropy of adsorption should also be negative
+because the rarefied phase, even at relatively high pressures, has far more
+configurations available to it than any adsorbate, even a 2-D lattice adsorbate
+(and once the gas phase density becomes liquid like, there is no reason to
+distinguish adsorbate from critical fluid or liquid phase).
+
+In the data, only the expected negative enthalpies and entropies of adsorption
+are observed, using as a pressure at which to evaluate the entropy of
+adsorption 1 bar. The mean values are -4076 multiples of the Boltzmann
+constant, and -0.46 multiples of the Boltzmann constant. Since the temperature
+averages 237 K, the relative contribution to the free energy change of
+adsorption is about 37 to 1 times enthalpy to entropy.
 
 # Data Source
 

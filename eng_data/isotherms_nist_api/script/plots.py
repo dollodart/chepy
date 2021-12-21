@@ -1,6 +1,6 @@
 from chepy.eng_data.isotherms_nist_api import load_isotherm_data
 from chepy.eng_data.isotherms_nist_api import (fit_langmuir_explicit,
-        fit_langmuirs, fit_freundlichs)
+        fit_langmuirs, fit_freundlichs, fit_vanthoft)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -100,11 +100,14 @@ def plot_K_T(df, ndf = None):
         gr = gr.dropna()
         if len(gr) <= 3 or (gr['K'] < 0).any() or (gr['temperature'] < 0).any():
             continue
+        delH_kB, delS_kB = fit_vanthoft(gr['temperature'], gr['K'],
+                 delH_kB0 = -1000, delS_kB0 = -25)
+        print(n, delH_kB, delS_kB, sep='\n')
+
         x = 1/gr['temperature']
         y = np.log(gr['K'])
-        slope, inter, *_ = linregress(x, y)
-        print(x, y, slope, inter, sep='\n')
-        plot, = plt.plot(x, y, 'o', label=f'$-\Delta H/kB$={slope:.3f}, $\Delta S/kB$={inter:.3f}')
+        plot, = plt.plot(x, y, 'o',
+                label=f'$-\Delta H/kB$={-delH_kB:.3f}, $\Delta S/kB$={delS_kB:.3f}')
         plt.plot((x.min(), x.max()),
                  (y.min(), y.max()),
                  '-', color = plot.get_color())
