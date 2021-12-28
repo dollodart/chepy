@@ -1,8 +1,6 @@
-TODO: still thermodynamically inconsistent integration (path dependent)
-
 # Motivation
 
-Justify the heuristic "add acid to water"
+Justify the heuristic "add acid to water".
 
 # Heat of Solution Data
 
@@ -54,11 +52,24 @@ decreasing with increasing solvent number at least at compositions near the
 limits of pure components, so the equimolar heat of mixing gives an upper bound
 on the heat of solution.
 
+## Note about 'intensive' heat of solution
+
+The mole-specific definition of the heat of solution applies only when 1 mole
+of solute is added to the n moles of water. The heat of solution isn't an
+intensive quantity like the heat of mixing is with respect to the moles of
+total solution. If one added .5 moles of solute to n moles of water, the result
+isn't .5 times the heat of solution of adding 1 mole of solute to n moles of
+water. The fact that 𝛥 h_m = 1/(1+n) 𝛥 h_s implies that 𝛥 h_s is in fact an
+extensive heat, which should by most conventions read 𝛥 H_s, since it is
+divided by number. It is meaningless to conclude that the numerator 1 is 1
+mole, rather than the identity operator, because that would presuppose that 𝛥 h_s
+is intensive (making the logical fallacy of begging the question).
+
 # Heat of Mixing of Sulfuric Acid and Water
 
 While not a general analysis, the source provides for all compositions the heat
-of mixing for H2SO4 and H2O, and one expects the arguments for other aqeous
-solutions of acids to be similar. 
+of mixing for H2SO4 and H2O, and one expects the qualitative conclusions to
+hold for other aqeous solutions of acids. 
 
 In figure E6.13 of Koretsky, the partial molar enthlapy of sulfuric acid as a
 dilute solute is -72 kJ/mol, while the partial molar enthlapy of water as a
@@ -78,6 +89,8 @@ quickly). The 'accumulated heat' upon differential addition of either acid to
 water or water to acid of a 10% H2SO4 solution, an equimolar solution, and a
 90% H2SO4 solution are shown to demonstrate this concept.
 
+## Thermodynamic Path Integration
+
 The thermodynamic path used is an isothermal and isobaric one as the
 composition is varied continuously. While the danger of incorrect mixing
 procedures for acids is due to adiabatic conditions causing temperature rise,
@@ -89,21 +102,43 @@ differ so greatly between water and sulfuric acid at around 76 J/(mol.K) and
 135 J/(mol.K), so that the temperature at any point for a given heat does not
 depend so greatly on composition.
 
-The evolved heat should not differ depending on the path taken, though it
-clearly does. This despite the fact that the thermodynamic consistency test,
-provided by the data source, is passed.
+Let d be a partial rather than total differential operator. Then the heats of adding
+acid to water and water to acid are
+
+Q1 = integral((dH/dnH2SO4)_(T, P, nH2O), nH2SO4i, nH2SO4f)
+Q2 = integral((dH/dnH2O)_(T, P, nH2SO4), nH2Oi, nH2Of)
+
+This is by definition of the partial molar property for the change in enthalpy,
+under the isothermal and isobaric conditions where one adds only one component
+to a fixed amount of another component. Because PV work is negligible for the
+volume expansion of the liquid compared to the change in enthalpy, all change
+in enthalpy is by balance in heat. Note that mixture volumes can vary
+significantly with respect to composition yet still the PV work is negligible
+for the given isobaric conditions. As an estimate, an equimolar solution of
+aqueous sulfuric acid has a molar specific PV work of only -.36 J/mol (this is
+negative since the system contracts), when the change in enthalpy is order
+kJ/mol and greater.
+
+The partial molar properties are intensive properties expressed in terms of the
+mole fraction of a component, so that the integrating variable (the independent
+variable of mole number of a component) is not what the input argument of the
+partial molar property is. Assuming a uniform sampling space in the mole
+fraction is optimal for integrating, in the discrete evaluation the independent
+variable is evaluated as a function of the mole fraction. That is,
+(dH/dnH2SO4)_(T, P, nH2O)(xH2SO4) is evaluated and corresponding nH2SO4(xH2SO4)
+are evaluated on some unit basis, and likewise for H2O.
+
+By thermodynamic path invariance, the change in enthalpy between two states is
+only a function of those states. The initial states are the same as two pure
+components of a given amount at a given temperature and pressure, and the final
+state is the same of a mixture of a given composition remaining at the same
+temperature and pressure. Therefore the changes in enthalpy and also the heats
+for these two paths should be the same. As is shown though they differ and
+quite significantly. This despite the fact that the thermodynamic consistency
+test, provided by the data source, is passed. Most likely some theoretical or
+numerical detail has escaped me. The motivating question has been answered
+anyway. 
 
 Data source: Table 6.1 Koretsky Engineering and Chemical Thermodynamics, 2nd edition.
 Heat of solution in kJ/mol solute
 n in moles of H2O
-
-One note: the kJ/mol solute applies when 1 mole of solute is added to the n
-moles of water. The heat of solution isn't an intensive quantity like the heat
-of mixing is to the moles of total solution. If one added .5 moles of solute
-to n moles of water, the result isn't .5 times the heat of solution of adding 1 mole
-of solute to n moles of water. The fact that 𝛥 h_m = 1/(1+n) 𝛥 h_s
-implies that 𝛥 h_s is in fact an extensive heat, which should by most
-conventions read 𝛥 H_s, since it is divided by number. It is meaningless to
-conclude that the numerator 1 is 1 mole, rather than the identity operator,
-because that would presuppose that 𝛥 h_s is intensive (in formal logic,
-begging the question or assuming the conclusion).
