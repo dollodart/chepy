@@ -93,7 +93,7 @@ def plot_H2SO4_H2O_hpart():
     plt.plot(x, y2, label='H2O')
     plt.legend()
     plt.xlabel('Composition H2SO4')
-    plt.ylabel('Partial Molar Enthalpy')
+    plt.ylabel('Partial Molar Enthalpy in kJ/mol')
 
 def approx_equal(a, b):
     a = abs(a)
@@ -178,7 +178,7 @@ def plot_td_path(nw_final, na_final):
     plt.plot(n2, Q2 / n2, label='dw->a')
     plt.legend()
     plt.xlabel('moles of solution')
-    plt.ylabel('accumulated heat per mole of solution')
+    plt.ylabel('accumulated heat per mole of solution in kJ/mol')
     plt.title(f'error in end heats for process = {error*100:.1f}%')
 
 def plot_gibbsduhem_consistency():
