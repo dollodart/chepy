@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
+from scipy.integrate import simpson
 
 hs = pd.read_csv('enthalpies-of-solution.csv', delimiter=',')
 columns = hs.columns
@@ -94,6 +95,56 @@ def plot_H2SO4_H2O_hpart():
     plt.xlabel('Composition H2SO4')
     plt.ylabel('Partial Molar Enthalpy')
 
+def approx_equal(a, b):
+    a = abs(a)
+    b = abs(b)
+    if b < a:
+        a, b = b, a 
+
+    d = b - a
+    s = a + b
+    err = 2 * d / s
+
+    if err < .0001:
+        return True
+    return False
+
+def check_tdpath_invar(na_final, nw_final):
+
+    xaf = na_final / (na_final + nw_final)
+    xwf = 1 - xaf
+
+    # path 1: add acid to water
+    xa1 = np.linspace(.01, xaf, 200)
+    na1 = xa1/(1-xa1) * nw_final
+    dQdna1 = dHdnH2SO4(xa1)
+    Q1 = simpson(dQdna1, na1)
+    n1 = nw_final + na1
+
+    # path 2: add water to acid
+    xw2 = np.linspace(.01, xwf, 200)
+    nw2 = xw2/(1-xw2) * na_final
+    dQdnw2 = dHdnH2O(1-xw2) # both functions of xa
+    Q2 = simpson(dQdnw2, nw2)
+    n2 = na_final + nw2
+
+    if not approx_equal(n1[-1], n2[-1]):
+        raise Exception('end number of moles different', n1[-1], n2[-1])
+    if not approx_equal(na1[-1], na_final):
+        raise Exception('for path 1 end number of acid incorrect', na1[-1], na_final)
+    if not approx_equal(n1[-1] - na1[-1], nw_final):
+        raise Exception('for path 1 end number of water incorrect', n1[-1] - na1[-1], nw_final)
+    if not approx_equal(nw2[-1], nw_final):
+        raise Exception('for path 2 end number of water incorrect', nw2[-1], nw_final)
+    if not approx_equal(n2[-1] - nw2[-1], na_final):
+        raise Exception('for path 2 end number of acid incorrect', n2[-1] - nw2[-1], na_final)
+    if not approx_equal(xa1[-1], xaf):
+        raise Exception('composition for path 1 incorrect', xa1[-1], xaf)
+    if not approx_equal(xw2[-1], xwf):
+        raise Exception('composition for path 2 incorrect', xw2[-1], xwf)
+    if not approx_equal(Q1, Q2):
+        raise Exception(f'heats evolved differ, {Q1:.2E} kJ/mol != {Q2:.2E} kJ/mol')
+
 def plot_td_path(nw_final, na_final):
 
     # add acid to water
@@ -122,24 +173,6 @@ def plot_td_path(nw_final, na_final):
     Q2 = np.cumsum(dQ)
     n2 = na_final + nw[1:]
 
-    #plt.plot(sorted(n1), sorted(n2))
-    #return
-
-#    the below may introduce numerical errors
-#    dn = .01*na_final
-#    na = np.arange(0, na_final, dn)
-#    x = na / (na + nw_final)
-#    dQ = dHdnH2SO4(x) * dn
-#    Q1 = np.cumsum(dQ)
-#    n1 = nw_final + na
-#
-#    dn = .01*nw_final
-#    nw = np.arange(0, nw_final, dn)
-#    x = na_final / (na_final + nw)
-#    dQ = dHdnH2O(x) * dn
-#    Q2 = np.cumsum(dQ)
-#    n2 = na_final + nw
-
     error = abs(2*(Q1[-1] - Q2[-1])/(Q1[-1] + Q2[-1]))
     plt.plot(n1, Q1 / n1, label='da->w')
     plt.plot(n2, Q2 / n2, label='dw->a')
@@ -148,9 +181,9 @@ def plot_td_path(nw_final, na_final):
     plt.ylabel('accumulated heat per mole of solution')
     plt.title(f'error in end heats for process = {error*100:.1f}%')
 
-def plot_td_consistency():
+def plot_gibbsduhem_consistency():
     """
-    Gibbs-Duhem test.
+    Gibbs-Duhem test for thermodynamic consistency of homogeneous thermodynamic functions.
     """
     dx = .01
     x = np.arange(0, 1, dx)
@@ -183,18 +216,25 @@ def plots_examples():
     plt.figure()
     plot_H2SO4_H2O_hpart()
 
+comp_space = ((9, 1), (1, 1), (1, 9)) # (na, nw)
+
 def plots_paths():
-    plt.figure()
-    plot_td_path(9, 1)
-    plt.figure()
-    plot_td_path(1, 1)
-    plt.figure()
-    plot_td_path(1, 9)
+    for na, nw in comp_space:
+        plt.figure()
+        plot_td_path(na, nw)
+
+def numeric_td_check():
+    for na, nw in comp_space:
+        try:
+            check_tdpath_invar(na, nw)
+        except Exception as e:
+            print('failed assertion', e)
 
 if __name__ == '__main__':
+    numeric_td_check()
     plots_tables()
     plots_examples()
     plots_paths()
     plt.figure()
-    plot_td_consistency()
+    plot_gibbsduhem_consistency()
     plt.show()
