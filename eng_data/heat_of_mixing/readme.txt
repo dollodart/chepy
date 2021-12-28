@@ -78,6 +78,17 @@ quickly). The 'accumulated heat' upon differential addition of either acid to
 water or water to acid of a 10% H2SO4 solution, an equimolar solution, and a
 90% H2SO4 solution are shown to demonstrate this concept.
 
+The thermodynamic path used is an isothermal and isobaric one as the
+composition is varied continuously. While the danger of incorrect mixing
+procedures for acids is due to adiabatic conditions causing temperature rise,
+accounting for temperature rise in the heat evolved would require using heat
+capacities to account for differences in the heat of mixing at different
+temperatures. For the purpose of quantifying danger, it is sufficient to use
+the isothermal heat generated because the specific heat capacities do not
+differ so greatly between water and sulfuric acid at around 76 J/(mol.K) and
+135 J/(mol.K), so that the temperature at any point for a given heat does not
+depend so greatly on composition.
+
 The evolved heat should not differ depending on the path taken, though it
 clearly does. This despite the fact that the thermodynamic consistency test,
 provided by the data source, is passed.

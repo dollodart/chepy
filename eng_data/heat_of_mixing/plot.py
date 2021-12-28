@@ -72,11 +72,13 @@ def plot_CHCl3_CH3OH_hs():
     plt.legend()
 
 def dHdnH2SO4(x):
+    # isobaric, isothermal partial molar property (moles H2O are constant)
     # x is composition of acid, in kJ/mol
     # non-zero partial molar enthalpy at zero composition is expected (derivative of extensive enthalpy)
     return 1.596 - 74.40*(1-x)**2 + 83.48*x*(1-x)**2
 
 def dHdnH2O(x):
+    # isobaric, isothermal partial molar property (moles H2SO4 are constant)
     # x is composition of acid, kJ/mol
     # non-zero partial molar enthalpy at unity composition is expected (derivative of extensive enthalpy)
     return 1.591 - 74.40*x**2 + 41.74*x**2*(1-2*(1-x))
