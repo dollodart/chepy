@@ -37,8 +37,11 @@ interpolator = CubicSpline(df['x'], df['dhmix'])
 
 def plot_CHCl3_CH3OH_hm():
     # reproduce Koretsky 6.11
-    plt.plot(df['x'], df['dhmix'], 'o-')
-    plt.plot(x, interpolator(x))
+    plt.plot(df['x'], df['dhmix'], 'o-', label='data')
+    plt.plot(x, interpolator(x), label='cubic spline interp')
+    plt.xlabel('$x(CHCl_3)$')
+    plt.ylabel('$\Delta h_{mix}$ in J/mol')
+    plt.legend()
 
 def plot_CHCl3_CH3OH_hs():
     # derived from Koretsky 6.11
