@@ -34,4 +34,18 @@ number of isomers for a hydrocarbon, since free trees can have any number of
 edges between two nodes, or in the present case, any number of bonds between
 atoms.
 
+In fact, the problem of enumerating the isomers of hydrocarbons of the form
+CnH(2n+2) is one of rich history, which is discussed in Biggs, Lloyd, and
+Wilson's History of Graph Theory. Illustrious mathematicians such as Sylvester,
+Cayley, and Polya have contributed to this problem, in fact a famous theorem
+(Polya's enumeration theorem) was applied to enumerate the isomers. Accordingly
+this problem is discussed widely, for example, the Handbook of Applicable
+Mathematics has in its volume on combinatorics a table of the number of isomers
+of CnH(2n+2) developed by an algorithm in a research paper. A brief survey of
+the history of the problem of enumerating hydrocarbon isomers, and the
+application of a generating function method like that used in Knuth though with
+an explicit consideration of group theory, is available at
+https://arxiv.org/abs/math/0207176v1. These reference sequences in the OEIS
+which are exact and provided up to small integer numbers.
+
 Data source: Table 2.1 of Organic Chemistry by Carey, Guiliano 9th Edition.
